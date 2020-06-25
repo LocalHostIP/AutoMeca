@@ -1,0 +1,137 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    /* background-image: linear-gradient(0deg,#adcbff,#d7ffad); */
+  }
+
+.menu{
+    margin-top: 0%;
+}
+
+.main{
+    width: 90%;
+    height: 80%;
+    margin-left: 5%;
+    margin-top: 5%;
+    display: block;
+}
+
+.txt_cantidadV{
+    width: 40px;
+    background-color:#9BD7D1;
+    border: none;
+    color:#232323;
+    text-decoration:none;
+    padding:7px 7px;
+    margin-left: 1%;
+    margin-top: 0%;
+    margin-bottom: 1px;
+    text-decoration:none;
+    list-style:none;
+    font-size: 13px;
+}
+
+.tituloID{
+    width: 10px;
+}
+
+.thEliminarVariable{
+    width: 50px;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.thEliminarVariable:hover{
+    opacity: 1;
+}
+
+.tablaID{
+    width: 10px;
+    background: #9BD7D1;
+    font-size: 12px;
+    font-weight: bold;
+    color: #232323;
+}
+#btBuscar {
+    margin-left: 40%;
+    width: 20%;
+    min-width: 200px;
+    margin-top: 0%;
+    background-color: #F26627;
+    border: none;
+    color: #EFEEEE;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 16px;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 1;
+    font-weight: bold;
+  }
+  
+#btBuscar:hover {
+    opacity: 0.7;
+}
+
+.spinner{
+    margin-top: 3%;
+    display: none;
+}
+
+.Resultados{
+    margin-top: 2%;
+    width: 87%;
+    margin-left: 4%;
+    padding: 40px;
+    display: none;
+
+}
+
+.lbResultado{
+    float:left;
+    margin-right: 20px;
+}
+
+#resultado{
+    float: left;
+    color: #F26627;
+}
+
+.ecuaciones{
+    float: none;
+}
+
+.ecuacion1{
+    color: #F26627;
+    float: left;
+    margin-right: 50px;
+    margin-bottom: 0%;
+}
+
+.titulo{
+    color: #F26627;
+    font-weight: bold;
+    margin-left: 100px;
+    margin-top: 25px;
+    text-align: left;
+}
+.ecuacion2{
+    color: #EFEEEE;
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 0%;
+}
+
+.linkClick{
+    cursor:pointer;
+}
+
+.divEcuacion{
+    display: block;
+    margin-left: 40px;
+    float: none;
+    margin-bottom: 0%;
+    padding: 0%;
+}

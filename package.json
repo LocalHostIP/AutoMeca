@@ -1,0 +1,21 @@
+{
+  "name": "automeca",
+  "version": "0.0.1",
+  "description": "Calculadora de problemas de mecanica",
+  "main": "servidor.js",
+  "scripts": {
+    "test": "node servidor.js && exit 1"
+  },
+  "keywords": [
+    "Calculadora",
+    "Fisica",
+    "Mecanica"
+  ],
+  "author": "Miguel Padilla",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}
