@@ -4,7 +4,8 @@
   "description": "Calculadora de problemas de mecanica",
   "main": "servidor.js",
   "scripts": {
-    "test": "node servidor.js && exit 1"
+    "test": "node servidor.js && exit 1",
+    "start": "node servidor.js && exit 1"
   },
   "keywords": [
     "Calculadora",
