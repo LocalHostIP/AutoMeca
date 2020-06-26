@@ -8,6 +8,8 @@
     </head>
     <body>
         <header>
+            <!--_________________MENU__________________-->
+
             <!--    Made by Erik Terwan    -->
             <!--   24th of November 2015   -->
             <!--        MIT License        -->
@@ -27,12 +29,12 @@
                 </div>
                 <h1 class="titulo">Calculadora</h1>
             </nav>
-            
+            <!--_________________Fin MENU__________________-->            
         </header>
 
         <section class="main">
             <section>
-                <!--for demo wrap-->
+                <!--_________________Tabla vraibles conocidas__________________-->
                 <h1> Variables conocidas <input id="txtCantidadV" class="txt_cantidadV" type="text" value="1"> </h1> 
                 <div class="tbl-header">
                   <table cellpadding="0" cellspacing="0" border="0">
@@ -54,10 +56,11 @@
                     </tbody>
                   </table>   
                 </div>
+                <!--_________________Fin Tabla vraibles conocidas__________________-->
               </section>
 
               <section>
-                <!--for demo wrap-->
+                <!--_________________Tabla tabla variable buscar__________________-->
                 <h1> Variable a buscar </h1> 
                 <div class="tbl-header">
                   <table cellpadding="0" cellspacing="0" border="0">
@@ -143,15 +146,22 @@
                     </tbody>
                   </table>          
                 </div>
+                <!--_________________Fin tabla variable buscar__________________-->
+
                 </section>
 
+                <!--_________________Boton solucion__________________-->
                 <button id="btBuscar"> Buscar solucion </button>
+
+                <!--_________________Animacion de carga__________________-->
                 <div class="load-9">
                   <div class="spinner">
                       <div class="bubble-1"></div>
                       <div class="bubble-2"></div>
                   </div> 
-                  </div>
+                </div>
+
+                <!--_________________Seccion de resultados__________________-->
                 <div class="Resultados">
                     <div>
                         <h2 class="lbResultado">Resultado: </h3> <h2 id="resultado" >0.0</h3>

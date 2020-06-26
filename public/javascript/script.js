@@ -1,3 +1,4 @@
+//Cambiar la cantidad de variables
 $("#txtCantidadV").change(function(){
     //Establece cuantas y agrega nuevas variables a las variables conocidas
     var val=$("#txtCantidadV").val();
@@ -14,87 +15,18 @@ $("#txtCantidadV").change(function(){
         var inicio=$("#cuerpoTabla").children().length;
         
         for(var i=inicio;i<n;i++){
-
-            $("#cuerpoTabla").append('\
-            <tr class="AgregarVariable" id=\'var'+(i+1)+'\'>\
-            <td class="tablaID" id="tablaTH'+(i+1)+'">\
-            '+(i+1)+'\
-            </td>\
-            <td>\
-            <ul class="nav nav_variable">\
-                    <li><a id="tipo'+(i+1)+'">Sin asignar</a>\
-                        <ul>\
-                            <li><a>MOVIMIENTO</a>\
-                                <ul>\
-                                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i+1)+'","velocidad")\'>velocidad</a></li>\
-                                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i+1)+'","aceleracion")\'>aceleraci&oacuten</a></li>\
-                                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i+1)+'","distancia")\'>distancia</a></li>\
-                                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i+1)+'","tiempo")\'>tiempo</a></li>\
-                                </ul>\
-                            </li>\
-                            <li><a>ENERG&IacuteA</a>\
-                                <ul>\
-                                    <li><a class="linkClick">mec&aacutenica</a></li>\
-                                    <li><a class="linkClick">potencial</a></li>\
-                                    <li><a class="linkClick">cin&eacutetica</a></li>\
-                                    <li><a class="linkClick">potencial gravitacional</a></li>\
-                                    <li><a class="linkClick">potencial elastica</a></li>\
-                                </ul>\
-                            </li>\
-                            <li><a>FUERZA</a>\
-                                <ul>\
-                                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i+1)+'","fuerza")\'>fuerza</a></li>\
-                                    <li><a class="linkClick">fricci&oacuten est&aacutetica</a></li>\
-                                    <li><a class="linkClick">fricci&oacuten cin&eacutetica</a></li>\
-                                    <li><a class="linkClick">fuerza normal</a></li>\
-                                </ul>\
-                            </li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i+1)+'","angulo")\'>&aacutengulo</a></li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i+1)+'","masa")\'>masa</a></li>\
-                        </ul>\
-                    </li>\
-                </ul>\
-            </td>\
-            <td>\
-                <ul class="nav nav_variable">\
-                    <li><a id="tiempo'+(i+1)+'">general</a>\
-                        <ul class="ulOpciones">\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+(i+1)+'","general")\'>general</a>\
-                            </li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+(i+1)+'","inicio")\'>inicio</a>\
-                            </li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+(i+1)+'","fin")\'>fin</a>\
-                            </li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+(i+1)+'","media")\'>media</a>\
-                            </li>\
-                        </ul>\
-                    </li>\
-                </ul></td>\
-            <td>\
-                <ul class="nav nav_variable">\
-                    <li><a id="dimension'+(i+1)+'">x</a>\
-                        <ul class="ulOpciones">\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+(i+1)+'","x")\'>x</a>\
-                            </li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+(i+1)+'","y")\'>y</a>\
-                            </li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+(i+1)+'","general")\'>general</a>\
-                            </li>\
-                        </ul>\
-                    </li>\
-                </ul></td>\
-            </td>\
-            <td><input class="txt_valor" type="text" value="0" id="valor'+(i+1)+'"></td>\
-            <td class="thEliminarVariable"> <img onclick=\'eliminarVar("var'+(i+1)+'","'+(i+1)+'")\' src="img/eliminar.png" alt="" width="45" height="35" /> </td>\
-          </tr>'); 
+            agregarVariableTabla(i+1);
         }        
     }
 });
 
+
+//Cambio de propiedad
 function cambioPropiedad(target,valor){
     $("#"+target).html(valor);
 }
 
+//Eliminar una variable
 function eliminarVar(target,idNumber){
     var val=parseInt($("#txtCantidadV").val());
     if(val>1){
@@ -111,6 +43,7 @@ function eliminarVar(target,idNumber){
             var respaldoTiempo=$('#tiempo'+i).html();
             var respaldoDimension=$('#dimension'+i).html();
             var respaldoValor=$('#valor'+i).val();
+
             $("#var"+i).attr('id','var'+(i-1));
             $("#var"+(i-1)).html('<td class="tablaID" id="tablaTH'+(i-1)+'">\
             '+(i-1)+'\
@@ -181,6 +114,7 @@ function eliminarVar(target,idNumber){
             </td>\
             <td><input class="txt_valor" type="text" value="0" id="valor'+(i-1)+'"></td>\
             <td class="thEliminarVariable"> <img onclick=\'eliminarVar("var'+(i-1)+'","'+(i-1)+'")\' src="img/eliminar.png" alt="" width="45" height="35" /> </td>');
+            
             $('#tipo'+(i-1)).html(respaldoTipo);
             $('#tiempo'+(i-1)).html(respaldoTiempo);
             $('#dimension'+(i-1)).html(respaldoDimension);
@@ -189,6 +123,84 @@ function eliminarVar(target,idNumber){
     }
 }
 
+
+function agregarVariableTabla(idNumber){
+    //Agrega una nueva variable a la tabla de varibles conocidas
+    $("#cuerpoTabla").append('\
+    <tr class="AgregarVariable" id=\'var'+idNumber+'\'>\
+    <td class="tablaID" id="tablaTH'+idNumber+'">\
+    '+idNumber+'\
+    </td>\
+    <td>\
+    <ul class="nav nav_variable">\
+            <li><a id="tipo'+idNumber+'">Sin asignar</a>\
+                <ul>\
+                    <li><a>MOVIMIENTO</a>\
+                        <ul>\
+                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","velocidad")\'>velocidad</a></li>\
+                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","aceleracion")\'>aceleraci&oacuten</a></li>\
+                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","distancia")\'>distancia</a></li>\
+                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","tiempo")\'>tiempo</a></li>\
+                        </ul>\
+                    </li>\
+                    <li><a>ENERG&IacuteA</a>\
+                        <ul>\
+                            <li><a class="linkClick">mec&aacutenica</a></li>\
+                            <li><a class="linkClick">potencial</a></li>\
+                            <li><a class="linkClick">cin&eacutetica</a></li>\
+                            <li><a class="linkClick">potencial gravitacional</a></li>\
+                            <li><a class="linkClick">potencial elastica</a></li>\
+                        </ul>\
+                    </li>\
+                    <li><a>FUERZA</a>\
+                        <ul>\
+                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","fuerza")\'>fuerza</a></li>\
+                            <li><a class="linkClick">fricci&oacuten est&aacutetica</a></li>\
+                            <li><a class="linkClick">fricci&oacuten cin&eacutetica</a></li>\
+                            <li><a class="linkClick">fuerza normal</a></li>\
+                        </ul>\
+                    </li>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","angulo")\'>&aacutengulo</a></li>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","masa")\'>masa</a></li>\
+                </ul>\
+            </li>\
+        </ul>\
+    </td>\
+    <td>\
+        <ul class="nav nav_variable">\
+            <li><a id="tiempo'+idNumber+'">general</a>\
+                <ul class="ulOpciones">\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+idNumber+'","general")\'>general</a>\
+                    </li>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+idNumber+'","inicio")\'>inicio</a>\
+                    </li>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+idNumber+'","fin")\'>fin</a>\
+                    </li>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("tiempo'+idNumber+'","media")\'>media</a>\
+                    </li>\
+                </ul>\
+            </li>\
+        </ul></td>\
+    <td>\
+        <ul class="nav nav_variable">\
+            <li><a id="dimension'+idNumber+'">x</a>\
+                <ul class="ulOpciones">\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+idNumber+'","x")\'>x</a>\
+                    </li>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+idNumber+'","y")\'>y</a>\
+                    </li>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+idNumber+'","general")\'>general</a>\
+                    </li>\
+                </ul>\
+            </li>\
+        </ul></td>\
+    </td>\
+    <td><input class="txt_valor" type="text" value="0" id="valor'+idNumber+'"></td>\
+    <td class="thEliminarVariable"> <img onclick=\'eliminarVar("var'+idNumber+'","'+idNumber+'")\' src="img/eliminar.png" alt="" width="45" height="35" /> </td>\
+  </tr>');     
+}
+
+//Click boton principal
 $("#btBuscar").click(function(){
     $(".spinner").css("display", "block");
     $(".Resultados").css("display", "none");       
