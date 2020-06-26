@@ -15,61 +15,6 @@ var e = require(path.join(__dirname+'/ecuaciones.js'));
 
 propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
 
-var cpp={}
-Object.assign(cpp, propiedades);
-
-cpp['tipo']="tiempo";
-cpp['tiempo']="inicio";
-cpp['valor']=2.0;
-var ti= new e.Variable(cpp);
-
-cpp['tipo']="tiempo";
-cpp['tiempo']="fin";
-cpp['valor']=5.0;
-var tf= new e.Variable(cpp);
-
-
-cpp['tipo']="tiempo";
-cpp['tiempo']="general";
-cpp['valor']=3;
-var tg= new e.Variable(cpp);
-
-cpp['tipo']="velocidad";
-cpp['tiempo']="inicio";
-cpp['valor']=5.0;
-var vi= new e.Variable(cpp);
- 
-cpp['tipo']="velocidad";
-cpp['tiempo']="fin";
-cpp['valor']=0;
-var vf= new e.Variable(cpp);
-
-cpp['tipo']="velocidad";
-cpp['tiempo']="media";
-cpp['valor']=175/6;
-var vm= new e.Variable(cpp);
-
-cpp['tipo']="aceleracion";
-cpp['tiempo']="general";
-cpp['valor']=-9.8;
-var a= new e.Variable(cpp);
-
-cpp['tipo']="distancia";
-cpp['tiempo']="inicio";
-cpp['valor']=3.0;
-var di= new e.Variable(cpp);
-
-cpp['tipo']="distancia";
-cpp['tiempo']="fin";
-cpp['valor']="sin_asingar";
-var df= new e.Variable(cpp);
-
-cpp['tipo']="distancia";
-cpp['tiempo']="general";
-cpp['valor']=0.44;
-var dg= new e.Variable(cpp);
-
-
 function clone(obj) {
     //crea un objeto de la clase Object con las propiedades que se le dan
     var copy;
@@ -120,6 +65,8 @@ function cloneVariable(variable){
     cpp['otro']=objResultado.otro;
     
     const varResultado=new e.Variable(cpp);
+    varResultado.id=variable.id;
+
     return varResultado;
 }
 

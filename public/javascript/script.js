@@ -3,7 +3,7 @@ $("#txtCantidadV").change(function(){
     //Establece cuantas y agrega nuevas variables a las variables conocidas
     var val=$("#txtCantidadV").val();
     if (isNaN(val) || val=='0'){
-        $("#txtCantidadV").val("1");
+        $("#txtCantidadV").val($("#cuerpoTabla").children().length);
     }else{
         var n=parseInt(val);
         if($("#cuerpoTabla").children().length!=0){
@@ -212,7 +212,7 @@ $("#btBuscar").click(function(){
     var variable={};
     var validado=true;
 
-    n=parseInt($("#txtCantidadV").val());
+    var n=parseInt($("#txtCantidadV").val());
     for (var i=0;i<n;i++){
         tipo=$("#tipo"+(i+1)).html();
         tiempo =$("#tiempo"+(i+1)).html();

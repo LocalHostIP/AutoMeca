@@ -23,6 +23,8 @@ class Variable{
         this.otro=propiedades["otro"];
         this.valor=propiedades["valor"];
         this.valor2=propiedades["valor2"];
+
+        this.id='sin_asignar';
     }
     comparar(v2){
         if (this.tipo!=v2.tipo)
