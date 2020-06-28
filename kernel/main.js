@@ -12,6 +12,8 @@ Errores actuales:
 
 const path = require('path');
 var e = require(path.join(__dirname+'/ecuaciones.js'));
+const path = require('path');
+var eFuerzas = require(path.join(__dirname+'/sumatoriaFuerzas.js'));
 
 propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
 
@@ -104,115 +106,120 @@ function buscarSolucionDimensionGeneral(buscar,parametros,rango,buscarInicial){
 }
 
 function buscarSolucion(buscar,parametros,rango,buscarInicial){//Primer parametro es el valor a encontrar, los sieguientes son los datos que se conoces, el siguiente siempre es cero
-    var soluciones=[];
-
-    //Intento de solucion a la primera
-    var solucion_encontrada=false;
-
-    for (var claseE of e.grafo[buscar.tipo]){
-        var ecuacion=Object.assign(new claseE(buscar,parametros));
-        var peso=ecuacion.getPeso(); //Peso o dificultad de la ecuacion
-        var resuelta=false; //Es para saber si está solución funciona o no con estos parametros
-        var ecuaciones_usadas=[]; //Guarda el conjunto de ecuaciones a utilizar para esta solución
-        var resultado = cloneVariable(buscar);//Guarda la variable resultado
-
-        if (ecuacion.getSoluble()){ //Si la ecuacion se resolvio con está ecuacion
-            resultado=ecuacion.usar();
-            if(resultado.valor!='sin_asignar'){
-                resuelta=true;
-                solucion_encontrada=true;
-            }
-            ecuaciones_usadas.push([ecuacion.representacion,ecuacion.ecuacionUsar,ecuacion.dimensionBase,resultado.valor,resultado.valor2]);
-        }
-        var solucion=[ecuaciones_usadas.slice(),peso,resuelta,cloneVariable(resultado)];
-        soluciones.push(solucion.slice());
-        if (solucion[2]==true && solucion[1]<3){
-            return solucion;
-        }        
-    }
-
-    if (solucion_encontrada==false){
+    if (buscar.tipo!="fuerza"){
         var soluciones=[];
-        for (var claseE of e.grafo[buscar.tipo]){ //Obtener todas las ecuaciones que consiguen esta variable
+
+        //Intento de solucion a la primera
+        var solucion_encontrada=false;
+    
+        for (var claseE of e.grafo[buscar.tipo]){
             var ecuacion=Object.assign(new claseE(buscar,parametros));
             var peso=ecuacion.getPeso(); //Peso o dificultad de la ecuacion
             var resuelta=false; //Es para saber si está solución funciona o no con estos parametros
             var ecuaciones_usadas=[]; //Guarda el conjunto de ecuaciones a utilizar para esta solución
             var resultado = cloneVariable(buscar);//Guarda la variable resultado
-
-            if (rango<4){//Si no se soluciono pero se está dentro del rango de busqueda 
-                var faltantes=ecuacion.getFaltantes(); //Se obtienen todos las variables que faltan para la ecuación.
-                
-                var n_parametros=[]; //Se clonan los parametros
-                for (var v of parametros){
-                    n_parametros.push(cloneVariable(v));
+    
+            if (ecuacion.getSoluble()){ //Si la ecuacion se resolvio con está ecuacion
+                resultado=ecuacion.usar();
+                if(resultado.valor!='sin_asignar'){
+                    resuelta=true;
+                    solucion_encontrada=true;
                 }
-    
-                var valida=true; //Si vale la pena iniciar otro rango con la nueva variable
-                for (var faltante of faltantes){ 
-                    if (faltante.comparar(buscarInicial)){ //S   una variable faltante es la misma que se esta bucando, se ignora esta solucion
-                        valida=false;
-                        break;
-                    }
-                }
-    
-                if (valida){
-                    for (var faltante of faltantes){ //Buscar las soluciones a todos las variables necesarias para la ecuacion
-    
-                        if (faltante.tipo=='tiempo' || faltante.tipo=='masa'){
-                            var solucion_faltante=buscarSolucionDimensionGeneral(faltante,n_parametros,rango+1,buscarInicial);
-                        }
-                        else{
-                            var solucion_faltante=buscarSolucion(faltante,n_parametros,rango+1,buscarInicial);
-                        }
-                        
-                        if (solucion_faltante[2]==false){ //Si alguna variable no se pudo conseguir no buscar las demas
-                            break;
-                        }
-    
-                        peso+=solucion_faltante[1];
-                        
-                        if ((solucion_faltante[2]==true)){
-                            n_parametros.push(cloneVariable(solucion_faltante[3])); //Agregar las variables faltantes a las variables que se usan como parametro
-                            for (var ecu of solucion_faltante[0]){
-                                ecuaciones_usadas.push([ ecu[0],ecu[1],ecu[2],ecu[3],ecu[4] ]); //Agregar a las ecuaciones que se usaron para la solucion
-                            }
-                        }
-                    }
-                }
-    
-                ecuacion=new claseE(buscar,n_parametros);
-    
-                if (ecuacion.getSoluble()){ //Si se resolvio con está ecuacion 
-                    resultado=ecuacion.usar();
-    
-                    if(resultado.valor!='sin_asignar'){
-                        resuelta=true;
-                    }
-    
-                    ecuaciones_usadas.push([ecuacion.representacion,ecuacion.ecuacionUsar,ecuacion.dimensionBase,resultado.valor,resultado.valor2 ]);         
-                }
+                ecuaciones_usadas.push([ecuacion.representacion,ecuacion.ecuacionUsar,ecuacion.dimensionBase,resultado.valor,resultado.valor2]);
             }
-    
             var solucion=[ecuaciones_usadas.slice(),peso,resuelta,cloneVariable(resultado)];
             soluciones.push(solucion.slice());
             if (solucion[2]==true && solucion[1]<3){
                 return solucion;
+            }        
+        }
+    
+        if (solucion_encontrada==false){
+            var soluciones=[];
+            for (var claseE of e.grafo[buscar.tipo]){ //Obtener todas las ecuaciones que consiguen esta variable
+                var ecuacion=Object.assign(new claseE(buscar,parametros));
+                var peso=ecuacion.getPeso(); //Peso o dificultad de la ecuacion
+                var resuelta=false; //Es para saber si está solución funciona o no con estos parametros
+                var ecuaciones_usadas=[]; //Guarda el conjunto de ecuaciones a utilizar para esta solución
+                var resultado = cloneVariable(buscar);//Guarda la variable resultado
+    
+                if (rango<1){//Si no se soluciono pero se está dentro del rango de busqueda 
+                    var faltantes=ecuacion.getFaltantes(); //Se obtienen todos las variables que faltan para la ecuación.
+                    
+                    var n_parametros=[]; //Se clonan los parametros
+                    for (var v of parametros){
+                        n_parametros.push(cloneVariable(v));
+                    }
+        
+                    var valida=true; //Si vale la pena iniciar otro rango con la nueva variable
+                    for (var faltante of faltantes){ 
+                        if (faltante.comparar(buscarInicial)){ //S   una variable faltante es la misma que se esta bucando, se ignora esta solucion
+                            valida=false;
+                            break;
+                        }
+                    }
+        
+                    if (valida){
+                        for (var faltante of faltantes){ //Buscar las soluciones a todos las variables necesarias para la ecuacion
+        
+                            if (faltante.tipo=='tiempo' || faltante.tipo=='masa'){
+                                var solucion_faltante=buscarSolucionDimensionGeneral(faltante,n_parametros,rango+1,buscarInicial);
+                            }
+                            else{
+                                var solucion_faltante=buscarSolucion(faltante,n_parametros,rango+1,buscarInicial);
+                            }
+                            
+                            if (solucion_faltante[2]==false){ //Si alguna variable no se pudo conseguir no buscar las demas
+                                break;
+                            }
+        
+                            peso+=solucion_faltante[1];
+                            
+                            if ((solucion_faltante[2]==true)){
+                                n_parametros.push(cloneVariable(solucion_faltante[3])); //Agregar las variables faltantes a las variables que se usan como parametro
+                                for (var ecu of solucion_faltante[0]){
+                                    ecuaciones_usadas.push([ ecu[0],ecu[1],ecu[2],ecu[3],ecu[4] ]); //Agregar a las ecuaciones que se usaron para la solucion
+                                }
+                            }
+                        }
+                    }
+        
+                    ecuacion=new claseE(buscar,n_parametros);
+        
+                    if (ecuacion.getSoluble()){ //Si se resolvio con está ecuacion 
+                        resultado=ecuacion.usar();
+        
+                        if(resultado.valor!='sin_asignar'){
+                            resuelta=true;
+                        }
+        
+                        ecuaciones_usadas.push([ecuacion.representacion,ecuacion.ecuacionUsar,ecuacion.dimensionBase,resultado.valor,resultado.valor2 ]);         
+                    }
+                }
+        
+                var solucion=[ecuaciones_usadas.slice(),peso,resuelta,cloneVariable(resultado)];
+                soluciones.push(solucion.slice());
+                if (solucion[2]==true && solucion[1]<3){
+                    return solucion;
+                }
             }
         }
-    }
-
-    solucion=soluciones[0];
-    for (var s of soluciones){ //Se obtiene la solución con menor peso
-        if (solucion[1] > s[1]){
-            if(s[2]==true){
-                solucion=s;
-            }
-        }else{
-            if(s[2]==true && solucion[2]==false){
-                solucion=s;
+    
+        solucion=soluciones[0];
+        for (var s of soluciones){ //Se obtiene la solución con menor peso
+            if (solucion[1] > s[1]){
+                if(s[2]==true){
+                    solucion=s;
+                }
+            }else{
+                if(s[2]==true && solucion[2]==false){
+                    solucion=s;
+                }
             }
         }
+    
+    }else{
+        eFuerzas.fuerzas(buscar,parametros); 
     }
 
     return solucion;
