@@ -35,7 +35,9 @@ body{
 .tituloID{
     width: 10px;
 }
-
+.ththNumeroFuerza{
+    width: 50px;
+}
 .thEliminarVariable{
     width: 50px;
     opacity: 0.5;

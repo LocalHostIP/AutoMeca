@@ -45,6 +45,7 @@
                         <th>Tiempo</th>
                         <th>Dimensi&oacuten</th>
                         <th>Valor</th>
+                        <th class="thNumeroFuerza">N&uacutemero<br>Fuerza</th>
                         <th class="thEliminarVariable"> </th>
                       </tr>
                     </thead>
@@ -69,6 +70,8 @@
                         <th>Tipo</th>
                         <th>Tiempo</th>
                         <th>Dimensi&oacuten</th>
+                        <th class="thNumeroFuerza">N&uacutemero<br>Fuerza</th>
+                      
                       </tr>
                     </thead>
                   </table>
@@ -135,12 +138,22 @@
                                         </li>
                                         <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","y")'>y</a>
                                         </li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","general")'>general</a>
+                                        <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","x/y")'>x/y</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul></td>
                         </td>
+                        <td>
+                          <ul class="nav nav_variable">
+                              <li><a id="nFuerza">1</a>
+                                  <ul class="ulOpciones">
+                                      <li><a class="linkClick" onclick='cambioPropiedad("nFuerza","1")'>1</a>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul></td>
+                      </td>
                       </tr>
 
                     </tbody>

@@ -7,10 +7,9 @@ Errores actuales:
     Las formulas son texto y no objetos
 */
 
-
 const tipos_variables=["velocidad","aceleracion","distancia","tiempo","angulo","fuerza","masa"];
 const tiempo_variables=["general","media","inicio","fin"];
-const  dimension_variables=["general","x","y"];
+const  dimension_variables=["x/y","x","y"];
 const  objetos_variables=["A","B"];
 var propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
 
@@ -21,6 +20,7 @@ class Variable{
         this.dimension=propiedades["dimension"];
         this.objeto=propiedades["objeto"];
         this.otro=propiedades["otro"];
+        
         this.valor=propiedades["valor"];
         this.valor2=propiedades["valor2"];
 
@@ -65,7 +65,7 @@ class Variable{
 
 class Ecuacion{ //Clase que toda ecuación debe heredar
     inicializar() {
-    }
+    } 
     constructor(obtener,param_vars){ //Inicializa una ecuacion con una variable base y las variables que encuentre
         this.representacion="sin_asignar"; //Representación por defecto de la ecuación
         this.despejes=[]; //Lista de string con todos los despejes que necesita
@@ -88,6 +88,7 @@ class Ecuacion{ //Clase que toda ecuación debe heredar
                 break;
             }
         }
+
         if (this.variable_base!=-1){ // //Si se encontro la variable
             
             this.dimensionBase=this.variables[this.variable_base].dimension;
@@ -577,6 +578,8 @@ class DistanciaG2 extends Ecuacion{
     }
 }
 
+//Con compomnentes
+
 class VelocidadComponentesX1 extends Ecuacion{
     inicializar(){
         this.dificultad=1.5;
@@ -588,10 +591,10 @@ class VelocidadComponentesX1 extends Ecuacion{
         cpp['dimension']="x";
         var vx=new Variable(cpp) ;   
         cpp['tipo']="velocidad";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var v=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var angulo=new Variable(cpp);
 
         this.variables=[v,vx,angulo];
@@ -664,10 +667,10 @@ class VelocidadComponentesY1 extends Ecuacion{
         cpp['dimension']="y";
         var vy=new Variable(cpp) ;   
         cpp['tipo']="velocidad";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var v=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var angulo=new Variable(cpp);
 
         this.variables=[v,vy,angulo];
@@ -738,10 +741,10 @@ class AceleracionComponentesX1 extends Ecuacion{
         cpp['dimension']="x";
         var ax=new Variable(cpp) ;   
         cpp['tipo']="aceleracion";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var a=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var angulo=new Variable(cpp);
 
         this.variables=[a,ax,angulo];
@@ -814,10 +817,10 @@ class AceleracionComponentesY1 extends Ecuacion{
         cpp['dimension']="y";
         var ay=new Variable(cpp) ;   
         cpp['tipo']="aceleracion";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var a=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var angulo=new Variable(cpp);
 
         this.variables=[a,ay,angulo];
@@ -878,6 +881,8 @@ class AceleracionComponentesY1 extends Ecuacion{
     }
 }
 
+
+
 class VelocidadComponentes2 extends Ecuacion{
     inicializar(){
         this.dificultad=1.5;
@@ -889,7 +894,7 @@ class VelocidadComponentes2 extends Ecuacion{
         cpp['dimension']="y";
         var vy=new Variable(cpp) ;   
         cpp['tipo']="velocidad";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var v=new Variable(cpp);
         cpp['tipo']="velocidad";
         cpp['dimension']="x";
@@ -961,7 +966,7 @@ class AceleracionComponentes2 extends Ecuacion{
         cpp['dimension']="y";
         var vy=new Variable(cpp) ;   
         cpp['tipo']="aceleracion";
-        cpp['dimension']="general";
+        cpp['dimension']="x/y";
         var v=new Variable(cpp);
         cpp['tipo']="aceleracion";
         cpp['dimension']="x";
@@ -1022,6 +1027,9 @@ class AceleracionComponentes2 extends Ecuacion{
         return this.variables[this.variable_base];
     }
 }
+
+//Fin con componentes 
+
 
 class VelocidadMedia1 extends Ecuacion{
     inicializar(){

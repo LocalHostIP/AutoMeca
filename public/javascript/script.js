@@ -1,3 +1,6 @@
+
+var nFuerzasContador=5  ; //Mantiene la cuenta de cuantos numeros poner en el menu de nFuerzas
+
 //Cambiar la cantidad de variables
 $("#txtCantidadV").change(function(){
     //Establece cuantas y agrega nuevas variables a las variables conocidas
@@ -20,14 +23,86 @@ $("#txtCantidadV").change(function(){
     }
 });
 
+function obtenerNumberoVarible(target){
+    //Obtiene el numero de variable de un id (tipo23->23 o tipoB ->B)
+    var nv="B";
+    var fin=target.length;
+    for(var n=0;n<fin;n++){
+        if (!isNaN(target[n])){
+            nv=target.substring(n,fin);
+            break;
+        }
+    }
+    return nv;
+}
+
+function cambiarMenuPropiedad(target,valores,valorInicial){
+    
+    $("#"+target).parent().html('<a id="'+target+'">'+valorInicial+'</a> <ul class="ulOpciones"> </ul>');
+
+    for (var v of valores){
+        console.log(v);
+        $('#'+target).parent().children('.ulOpciones').append('\
+        <li><a class="linkClick" onclick=\'cambioPropiedad("'+target+'","'+v+'")\'>'+v+'</a>\
+        </li>');
+    }
+
+}
 
 //Cambio de propiedad
 function cambioPropiedad(target,valor){
+    //Click en cualquier menu de propiedad de la tabla de variables y varible
     $("#"+target).html(valor);
+    nVariable=obtenerNumberoVarible(target);
+
+    //Tiempo general
+    if (target.startsWith("tipo")&& (valor=="aceleracion" || valor=="masa")){
+        cambiarMenuPropiedad("tiempo"+nVariable,["general"],"general");
+    }
+    else if(target.startsWith("tipo") && valor=="fuerza"){
+        cambiarMenuPropiedad("tiempo"+nVariable,["general","inicio"],"general");
+
+        if($("#tiempo"+nVariable).html()=="general"){
+            cambiarMenuPropiedad("nFuerza"+nVariable,["general"],"general");
+        }
+        else{
+            actualizarFuerza(nVariable);
+        }
+    }
+    else if( target.startsWith("tipo") ){
+        cambiarMenuPropiedad("tiempo"+nVariable,["general","inicio","fin","media"],"general");
+    }
+
+    //Valores fuerza, en Tiempos fuerza
+    if ($("#tipo"+nVariable).html()=="fuerza"){
+        if(target.startsWith("tiempo") && valor=="general"){
+            cambiarMenuPropiedad("nFuerza"+nVariable,["general"],"general");
+        }
+        else if(target.startsWith("tiempo") && valor=="inicio"){
+            actualizarFuerza(nVariable);
+        }
+    }
+
+    //Quitar o poner columna Numero fuerza
+    if((valor=="fuerza" || valor=="angulo") && target.startsWith("tipo")){
+        $("#nFuerza"+nVariable).css("display","block");  
+    }
+    else if (target.startsWith("tipo")){
+        $("#nFuerza"+nVariable).css("display","none");
+    }
+}
+
+function actualizarFuerza(nvariable){
+    var fuerzas=[];
+    for (var i=1;i<=nFuerzasContador;i++){
+        fuerzas.push(i.toString());
+    }
+    cambiarMenuPropiedad("nFuerza"+nvariable,fuerzas,(nFuerzasContador-1).toString());
 }
 
 //Eliminar una variable
 function eliminarVar(target,idNumber){
+    //Click en boton eleiminar de cualquier variable
     var val=parseInt($("#txtCantidadV").val());
     if(val>1){
         $("#"+target).remove();
@@ -106,13 +181,22 @@ function eliminarVar(target,idNumber){
                             </li>\
                             <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+(i-1)+'","y")\'>y</a>\
                             </li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+(i-1)+'","general")\'>general</a>\
+                            <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+(i-1)+'","x/y")\'>x/y</a>\
                             </li>\
                         </ul>\
                     </li>\
                 </ul></td>\
             </td>\
             <td><input class="txt_valor" type="text" value="0" id="valor'+(i-1)+'"></td>\
+            <td>\
+            <ul class="nav nav_variable">\
+                <li><a id="nFuerza'+(i-1)+'">1</a>\
+                    <ul class="ulOpciones">\
+                        <li><a class="linkClick" onclick=\'cambioPropiedad("nFuerza'+(i-1)+'","1")\'>1</a>\
+                        </li>\
+                    </ul>\
+                </li>\
+            </ul></td>\
             <td class="thEliminarVariable"> <img onclick=\'eliminarVar("var'+(i-1)+'","'+(i-1)+'")\' src="img/eliminar.png" alt="" width="45" height="35" /> </td>');
             
             $('#tipo'+(i-1)).html(respaldoTipo);
@@ -122,7 +206,6 @@ function eliminarVar(target,idNumber){
         }
     }
 }
-
 
 function agregarVariableTabla(idNumber){
     //Agrega una nueva variable a la tabla de varibles conocidas
@@ -189,15 +272,26 @@ function agregarVariableTabla(idNumber){
                     </li>\
                     <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+idNumber+'","y")\'>y</a>\
                     </li>\
-                    <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+idNumber+'","general")\'>general</a>\
+                    <li><a class="linkClick" onclick=\'cambioPropiedad("dimension'+idNumber+'","x/y")\'>x/y</a>\
                     </li>\
                 </ul>\
             </li>\
         </ul></td>\
     </td>\
     <td><input class="txt_valor" type="text" value="0" id="valor'+idNumber+'"></td>\
+    <td>\
+    <ul class="nav nav_variable">\
+    <li>\
+        <a id="nFuerza'+idNumber+'">1</a>\
+        <ul class="ulOpciones">\
+            <li><a class="linkClick" onclick=\'cambioPropiedad("nFuerza'+idNumber+'","1")\'>1</a>\
+            </li>\
+        </ul>\
+    </li>\
+    </ul>\
+    </td>\
     <td class="thEliminarVariable"> <img onclick=\'eliminarVar("var'+idNumber+'","'+idNumber+'")\' src="img/eliminar.png" alt="" width="45" height="35" /> </td>\
-  </tr>');     
+    </tr>');     
 }
 
 //Click boton principal
