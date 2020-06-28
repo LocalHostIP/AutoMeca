@@ -1,9 +1,10 @@
 const path = require('path');
 var e = require(path.join(__dirname+'/ecuaciones.js'));
 
+
 propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
 
-class sumatoriaFuerzas extends Ecuacion{
+class sumatoriaFuerzasGeneral extends Ecuacion{
     inicializar(){
         this.dificultad=1;
         this.representacion="F = (Fx^2 + Fy^2)^0.5"; //sdlkjlksd
@@ -74,4 +75,5 @@ class sumatoriaFuerzas extends Ecuacion{
     }
 }
 
+exports.sumatoriaFuerzasGeneral = sumatoriaFuerzasGeneral; 
 
