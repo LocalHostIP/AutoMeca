@@ -7,6 +7,9 @@ Errores actuales:
     Las formulas son texto y no objetos
 */
 
+const path = require('path');
+var ecuacionesFuerza = require(path.join(__dirname+'/sumatoriaFuerzas.js'));
+
 const tipos_variables=["velocidad","aceleracion","distancia","tiempo","angulo","fuerza","masa"];
 const tiempo_variables=["general","media","inicio","fin"];
 const  dimension_variables=["x/y","x","y"];
@@ -1275,7 +1278,7 @@ var grafo={"velocidad":[VelocidadComponentes2,VelocidadFinal1,DistanciaFinal1,Ve
     FuerzaAM],
 "distancia":[DistanciaFinal1,DistanciaG,VelocidadFinal2,DistanciaG2,VelocidadMedia1],
 "angulo":[VelocidadComponentesX1,VelocidadComponentesY1,AceleracionComponentesY1,AceleracionComponentesX1],
-"fuerza":[FuerzaAM],
+"fuerza":[FuerzaAM,ecuacionesFuerza.SumatoriaFuerzasGeneral],
 "masa":[FuerzaAM]};
 
 exports.Variable = Variable;
