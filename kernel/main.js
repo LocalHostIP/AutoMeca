@@ -12,7 +12,6 @@ Errores actuales:
 
 const path = require('path');
 var e = require(path.join(__dirname+'/ecuaciones.js'));
-const path = require('path');
 var eFuerzas = require(path.join(__dirname+'/sumatoriaFuerzas.js'));
 
 propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
@@ -219,7 +218,7 @@ function buscarSolucion(buscar,parametros,rango,buscarInicial){//Primer parametr
         }
     
     }else{
-        eFuerzas.fuerzas(buscar,parametros); 
+        var solucion=eFuerzas.fuerzas(buscar,parametros); 
     }
 
     return solucion;
