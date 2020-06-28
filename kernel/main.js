@@ -1,5 +1,5 @@
 /*
-Miguel Angel Guerrero Padilla
+Miguel Angel Guerrero Padilla y el otro
 Version 0.0.0.5
 funciona con ecuaciones 0.0.0.5
 Algoritmo revisado con rango indefinido
