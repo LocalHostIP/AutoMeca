@@ -12,7 +12,7 @@
     "Fisica",
     "Mecanica"
   ],
-  "author": "Miguel Padilla",
+  "author": "Miguel Padilla, Lázaro Torres",
   "license": "ISC",
   "dependencies": {
     "colors": "^1.4.0",
