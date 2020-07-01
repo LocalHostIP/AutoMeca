@@ -11,7 +11,7 @@ const tipos_variables=["velocidad","aceleracion","distancia","tiempo","angulo","
 const tiempo_variables=["general","media","inicio","fin"];
 const  dimension_variables=["x/y","x","y"];
 const  objetos_variables=["A","B"];
-var propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
+var propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
 
 class Variable{
     constructor(propiedades){
@@ -20,6 +20,7 @@ class Variable{
         this.dimension=propiedades["dimension"];
         this.objeto=propiedades["objeto"];
         this.otro=propiedades["otro"];
+        this.nFuerza=propiedades["nFuerza"];
         
         this.valor=propiedades["valor"];
         this.valor2=propiedades["valor2"];
@@ -36,6 +37,8 @@ class Variable{
         if (this.objeto!=v2.objeto)
             return false;
         if (this.otro!=v2.otro)
+            return false;  
+        if (this.nFuerza!=v2.nFuerza)
             return false;                           
         return true;
     }
@@ -56,7 +59,10 @@ class Variable{
             }
             if (p=='otro' && this.otro!=v2.otro){
                 return false;
-            }               
+            }  
+            if (p=='nFuerza' && this.nFuerza!=v2.nFuerza){
+                return false;
+            }             
         }
                       
         return true;
@@ -594,7 +600,7 @@ class VelocidadComponentesX1 extends Ecuacion{
         cpp['dimension']="x/y";
         var v=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="x/y";
+        cpp['dimension']="velocidad";
         var angulo=new Variable(cpp);
 
         this.variables=[v,vx,angulo];
@@ -670,7 +676,7 @@ class VelocidadComponentesY1 extends Ecuacion{
         cpp['dimension']="x/y";
         var v=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="x/y";
+        cpp['dimension']="velocidad";
         var angulo=new Variable(cpp);
 
         this.variables=[v,vy,angulo];
@@ -744,7 +750,7 @@ class AceleracionComponentesX1 extends Ecuacion{
         cpp['dimension']="x/y";
         var a=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="x/y";
+        cpp['dimension']="aceleracion";
         var angulo=new Variable(cpp);
 
         this.variables=[a,ax,angulo];
@@ -820,7 +826,7 @@ class AceleracionComponentesY1 extends Ecuacion{
         cpp['dimension']="x/y";
         var a=new Variable(cpp);
         cpp['tipo']="angulo";
-        cpp['dimension']="x/y";
+        cpp['dimension']="aceleracion";
         var angulo=new Variable(cpp);
 
         this.variables=[a,ay,angulo];
@@ -1209,16 +1215,19 @@ class FuerzaAM extends Ecuacion{
         var cpp={};
         Object.assign(cpp, propiedades); //Creacion de variables
         cpp['tipo']="fuerza";
+        cpp['tiempo']="general";
         var f=new Variable(cpp) ;   
         cpp['tipo']="masa";
+        cpp['tiempo']="general";
         var m=new Variable(cpp);
         cpp['tipo']="aceleracion";
+        cpp['tiempo']="general";
         var a=new Variable(cpp);
 
         this.variables=[f,m,a];
         this.variables_asignadas=[false,false,false];
-        this.propiedadesVariablesComparar=['tipo'];
-        this.propiedadesVariablesSobrantes=['dimension','otro','objeto','tiempo'];
+        this.propiedadesVariablesComparar=['tipo',"tiempo"];
+        this.propiedadesVariablesSobrantes=['dimension','otro','objeto'];
         this.despejes=["F = m*a"," m = F/a","a = F/m"];
     }
     constructor(obtener,param_bars){

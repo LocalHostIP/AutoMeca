@@ -1,4 +1,4 @@
-
+//Bug al eliminar una fuerza
 var nFuerzasContador=5  ; //Mantiene la cuenta de cuantos numeros poner en el menu de nFuerzas
 
 //Cambiar la cantidad de variables
@@ -84,11 +84,30 @@ function cambioPropiedad(target,valor){
     }
 
     //Quitar o poner columna Numero fuerza
-    if((valor=="fuerza" || valor=="angulo") && target.startsWith("tipo")){
+    if((valor=="fuerza") && target.startsWith("tipo")){
         $("#nFuerza"+nVariable).css("display","block");  
     }
     else if (target.startsWith("tipo")){
         $("#nFuerza"+nVariable).css("display","none");
+    }
+
+
+    //Ajustando propiedades de angulo
+    if((valor=="angulo") && target.startsWith("tipo")){
+        cambiarMenuPropiedad("dimension"+nVariable,["velocidad","fuerza 1","fuerza 2"," fuerza 3",
+    "fuerza 4", "fuerza 5"],"velocidad");   
+    cambiarMenuPropiedad("tiempo"+nVariable,["inicio","fin","general"],"inicio");  
+    }else if(target.startsWith("tipo")){
+        cambiarMenuPropiedad("dimension"+nVariable,["x","y","x/y"],"x");
+    }
+    if ($("#tipo"+nVariable).html()=="angulo"){
+        if(target.startsWith("tiempo") && valor=="general"){
+            cambiarMenuPropiedad("dimension"+nVariable,["aceleracion","fuerza general"],"aceleracion");
+        }
+        else if(target.startsWith("tiempo") && (valor=="inicio" || valor=="fin")){
+            cambiarMenuPropiedad("dimension"+nVariable,["velocidad","fuerza 1","fuerza 2"," fuerza 3",
+    "fuerza 4", "fuerza 5"],"velocidad"); 
+        }       
     }
 }
 
@@ -97,7 +116,7 @@ function actualizarFuerza(nvariable){
     for (var i=1;i<=nFuerzasContador;i++){
         fuerzas.push(i.toString());
     }
-    cambiarMenuPropiedad("nFuerza"+nvariable,fuerzas,(nFuerzasContador-1).toString());
+    cambiarMenuPropiedad("nFuerza"+nvariable,fuerzas,"1");
 }
 
 //Eliminar una variable
@@ -190,7 +209,7 @@ function eliminarVar(target,idNumber){
             <td><input class="txt_valor" type="text" value="0" id="valor'+(i-1)+'"></td>\
             <td>\
             <ul class="nav nav_variable">\
-                <li><a id="nFuerza'+(i-1)+'">1</a>\
+                <li><a style="display: none;" id="nFuerza'+(i-1)+'">1</a>\
                     <ul class="ulOpciones">\
                         <li><a class="linkClick" onclick=\'cambioPropiedad("nFuerza'+(i-1)+'","1")\'>1</a>\
                         </li>\
@@ -282,7 +301,7 @@ function agregarVariableTabla(idNumber){
     <td>\
     <ul class="nav nav_variable">\
     <li>\
-        <a id="nFuerza'+idNumber+'">1</a>\
+        <a style="display: none;" id="nFuerza'+idNumber+'">1</a>\
         <ul class="ulOpciones">\
             <li><a class="linkClick" onclick=\'cambioPropiedad("nFuerza'+idNumber+'","1")\'>1</a>\
             </li>\
@@ -302,6 +321,7 @@ $("#btBuscar").click(function(){
     var tipo;
     var tiempo;
     var valor;
+    var nFuerza="sin_asignar";
     var dimension;
     var variable={};
     var validado=true;
@@ -312,7 +332,14 @@ $("#btBuscar").click(function(){
         tiempo =$("#tiempo"+(i+1)).html();
         valor = $("#valor"+(i+1)).val();
         dimension = $("#dimension"+(i+1)).html();
-        variable={"tipo":tipo,"tiempo":tiempo,"valor":valor,"dimension":dimension};
+        
+        if (tipo=="fuerza"){
+            nFuerza=$("#nFuerza"+(i+1)).html();
+        }else{
+            nFuerza="sin_asignar";
+        }
+
+        variable={"tipo":tipo,"tiempo":tiempo,"valor":valor,"dimension":dimension,"nFuerza":nFuerza};
         variables.push(variable);
 
         if(tipo=='Sin asignar'){
@@ -323,7 +350,11 @@ $("#btBuscar").click(function(){
     tipo=$("#tipoB").html();
     tiempo =$("#tiempoB").html();
     dimension = $("#dimensionB").html();
-    variable={"tipo":tipo,"tiempo":tiempo,"dimension":dimension};
+    nFuerza="sin_asignar";
+    if (tipo=="fuerza"){
+        nFuerza=$("nFuerzaB").html();
+    }
+    variable={"tipo":tipo,"tiempo":tiempo,"dimension":dimension,"nFuerza":nFuerza};
     if(tipo=='Sin asignar'){
         validado=false;
     }

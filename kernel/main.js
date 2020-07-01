@@ -14,7 +14,7 @@ const path = require('path');
 var e = require(path.join(__dirname+'/ecuaciones.js'));
 var eFuerzas = require(path.join(__dirname+'/sumatoriaFuerzas.js'));
 
-propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
+propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
 
 function clone(obj) {
     //crea un objeto de la clase Object con las propiedades que se le dan
@@ -261,6 +261,7 @@ function usar(variableBuscar,variables){
             cpp['valor']=parseFloat(v['valor']);
             cpp['tiempo']=v['tiempo'];
             cpp['dimension']=v['dimension'];
+            cpp['nFuerza']=v['nFuerza'];
             parametros.push(new e.Variable(cpp));
         }
     }
@@ -271,6 +272,7 @@ function usar(variableBuscar,variables){
     cpp['tipo']=variableBuscar['tipo'];
     cpp['tiempo']=variableBuscar['tiempo'];
     cpp['dimension']=variableBuscar['dimension'];
+    cpp['nFuerza']=variableBuscar['nFuerza'];
     var buscar=new e.Variable(cpp);      
     
     if (buscar.tipo=='tiempo' || buscar.tipo=='masa'){

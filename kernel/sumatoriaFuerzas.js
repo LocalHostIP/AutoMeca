@@ -1,7 +1,7 @@
 const path = require('path');
 var e = require(path.join(__dirname+'/ecuaciones.js'));
 
-propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar"};
+var propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
 
 class Variable{
     constructor(propiedades){
@@ -10,6 +10,7 @@ class Variable{
         this.dimension=propiedades["dimension"];
         this.objeto=propiedades["objeto"];
         this.otro=propiedades["otro"];
+        this.nFuerza=propiedades["nFuerza"];
         
         this.valor=propiedades["valor"];
         this.valor2=propiedades["valor2"];
@@ -26,6 +27,8 @@ class Variable{
         if (this.objeto!=v2.objeto)
             return false;
         if (this.otro!=v2.otro)
+            return false;  
+        if (this.nFuerza!=v2.nFuerza)
             return false;                           
         return true;
     }
@@ -46,13 +49,15 @@ class Variable{
             }
             if (p=='otro' && this.otro!=v2.otro){
                 return false;
-            }               
+            }  
+            if (p=='nFuerza' && this.nFuerza!=v2.nFuerza){
+                return false;
+            }             
         }
                       
         return true;
     }
 }
-
 
 function fuerzas(buscar,parametros){
     console.log("funciona");
