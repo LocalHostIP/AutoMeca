@@ -142,7 +142,7 @@ function buscarSolucion(buscar,parametros,rango,buscarInicial){//Primer parametr
                 var ecuaciones_usadas=[]; //Guarda el conjunto de ecuaciones a utilizar para esta solución
                 var resultado = cloneVariable(buscar);//Guarda la variable resultado
     
-                if (rango<1){//Si no se soluciono pero se está dentro del rango de busqueda 
+                if (rango<3){//Si no se soluciono pero se está dentro del rango de busqueda 
                     var faltantes=ecuacion.getFaltantes(); //Se obtienen todos las variables que faltan para la ecuación.
                     
                     var n_parametros=[]; //Se clonan los parametros
