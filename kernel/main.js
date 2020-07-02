@@ -118,7 +118,6 @@ function buscarSolucion(buscar,parametros,rango,evitar,ultimoID){//Primer parame
 
     if (entrarSolucion){
         var soluciones=[];
-        console.log("fasdfasd")
         //Intento de solucion a la primera
         var solucion_encontrada=false;
     

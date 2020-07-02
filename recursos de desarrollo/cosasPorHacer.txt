@@ -1,5 +1,10 @@
-Ecuaciones energia
-Tabla movimiento cirular
-Intergrar ecuaciones de fuerzas correctamente
-Formula angulo resultante, tangente
-Explicacion de ecuaciones identificando cada variable usada
+
+Incompletos:
+    Ecuaciones energia
+    Tabla movimiento cirular
+    Intergrar ecuaciones de fuerzas correctamente
+    Explicacion de ecuaciones identificando cada variable usada
+
+
+Completados:
+    Formula angulo resultante, tangente

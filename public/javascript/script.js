@@ -147,8 +147,8 @@ function eliminarVar(target,idNumber){
                         <ul>\
                             <li><a>MOVIMIENTO</a>\
                                 <ul>\
-                                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","velocidad")\'>velocidad</a></li>\
                                     <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","aceleracion")\'>aceleraci&oacuten</a></li>\
+                                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","velocidad")\'>velocidad</a></li>\
                                     <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","distancia")\'>distancia</a></li>\
                                     <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","tiempo")\'>tiempo</a></li>\
                                 </ul>\
@@ -238,9 +238,9 @@ function agregarVariableTabla(idNumber){
                 <ul>\
                     <li><a>MOVIMIENTO</a>\
                         <ul>\
+                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","distancia")\'>distancia</a></li>\
                             <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","velocidad")\'>velocidad</a></li>\
                             <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","aceleracion")\'>aceleraci&oacuten</a></li>\
-                            <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","distancia")\'>distancia</a></li>\
                             <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","tiempo")\'>tiempo</a></li>\
                         </ul>\
                     </li>\
@@ -388,7 +388,6 @@ $("#btBuscar").click(function(){
                             <h3 class="ecuacion2">('+e[3]+')</h3>\
                             <h2 class="ecuacion1">'+e[1]+' = '+e[4]+'</h2>\
                             <h3 class="ecuacion2">'+e[0]+'</h3>\
-                            <h3 class="ecuacion2">'+e[2]+'</h3>\
                             </div><br><br><br>');
                         }else{
                             $('#ecuaciones').append('\
@@ -396,7 +395,6 @@ $("#btBuscar").click(function(){
                             <h3 class="ecuacion2">('+e[3]+')</h3>\
                             <h2 class="ecuacion1">'+e[1]+' = '+e[4]+' , '+e[5]+' </h2>\
                             <h3 class="ecuacion2"> '+e[0]+'</h3>\
-                            <h3 class="ecuacion2"> '+e[2]+'</h3>\
                             </div><br><br><br>');                           
                         }
 
