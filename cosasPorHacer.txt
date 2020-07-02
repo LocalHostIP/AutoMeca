@@ -1,1 +1,0 @@
-cambiar general por x/y en ecuaciones.js y sumatoria.js

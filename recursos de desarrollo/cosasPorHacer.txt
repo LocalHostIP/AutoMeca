@@ -1,0 +1,5 @@
+Ecuaciones energia
+Tabla movimiento cirular
+Intergrar ecuaciones de fuerzas correctamente
+Formula angulo resultante, tangente
+Explicacion de ecuaciones identificando cada variable usada
