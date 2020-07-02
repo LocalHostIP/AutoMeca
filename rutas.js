@@ -12,7 +12,7 @@ router.use('/buscarBariable',function(req,res,next) {
   const {parametros}=req.body;
 
   console.log("Datos enviados por: ".gray+ip.cyan);
-  //console.log(buscar);
+  console.log(buscar);
   //console.log(parametros);
   var respuesta=kernel.usar(buscar,parametros);
   console.log(respuesta[2]);

@@ -1,7 +1,5 @@
-const path = require('path');
-var e = require(path.join(__dirname+'/ecuaciones.js'));
 
-var propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
+var propiedades={"id":"sin_asignar","tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
 
 class Variable{
     constructor(propiedades){
@@ -15,7 +13,7 @@ class Variable{
         this.valor=propiedades["valor"];
         this.valor2=propiedades["valor2"];
 
-        this.id='sin_asignar';
+        this.id=propiedades["id"];
     }
     comparar(v2){
         if (this.tipo!=v2.tipo)
@@ -63,13 +61,14 @@ function fuerzas(buscar,parametros){
     console.log("funciona");
     console.log("variable buscar:");
     console.log(buscar);
+    console.log(parametros);
 
     var variableResulta = new Variable(propiedades);
     variableResulta.valor=213;
     variableResulta.valor2=100;
 
-    var ecuacionUsada1=["Representacion base 1","Despeje","en que dimension se utilizo",variableResulta.valor,variableResulta.valor2 ]; //Formato de una ecuacion usada
-    var ecuacionUsada2=["Representacion base 2","Despeje","en que dimension se utilizo",variableResulta.valor,variableResulta.valor2 ]; //Formato de una ecuacion usada
+    var ecuacionUsada1=["Representacion base 1","Despeje","Ecuacion con las variables usadas"," dimension",variableResulta.valor,variableResulta.valor2 ]; //Formato de una ecuacion usada
+    var ecuacionUsada2=["Representacion base 2","Despeje","Ecuacion con las variables usadas","dimension",variableResulta.valor,variableResulta.valor2 ]; //Formato de una ecuacion usada
     
     var resulta=true; //Si fue resuelta o no
     var peso=2;//peso o dificultad de la solucion

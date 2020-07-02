@@ -108,7 +108,7 @@ function buscarSolucion(buscar,parametros,rango,evitar,ultimoID){//Primer parame
     var entrarSolucion=false; //Indica si entra a la soluciones y ecuaciones de Miguel
     if (buscar.tipo=="fuerza"){
         var solucion=eFuerzas.fuerzas(buscar,parametros); 
-        if (!solucion[1]){ //Si no se pudo resolver con el archivo de lazaro intenta con las formulas de fuerza del archivo de ecuaciones
+        if (!solucion[2]){ //Si no se pudo resolver con el archivo de lazaro intenta con las formulas de fuerza del archivo de ecuaciones
             entrarSolucion=true;
         }
     }
@@ -118,7 +118,7 @@ function buscarSolucion(buscar,parametros,rango,evitar,ultimoID){//Primer parame
 
     if (entrarSolucion){
         var soluciones=[];
-
+        console.log("fasdfasd")
         //Intento de solucion a la primera
         var solucion_encontrada=false;
     
@@ -137,8 +137,7 @@ function buscarSolucion(buscar,parametros,rango,evitar,ultimoID){//Primer parame
                     resultado.id=(parseInt(ultimoID)+1).toString();
                 }
                 ecuaciones_usadas.push([ecuacion.representacion,ecuacion.ecuacionUsar,ecuacion.getEcuacionIdentificada(resultado.id),ecuacion.dimensionBase,resultado.valor,resultado.valor2]);
-                
-                console.log(ecuaciones_usadas);
+            
             }
             var solucion=[ecuaciones_usadas.slice(),peso,resuelta,cloneVariable(resultado)];
             soluciones.push(solucion.slice());

@@ -352,11 +352,12 @@ $("#btBuscar").click(function(){
     tiempo =$("#tiempoB").html();
     dimension = $("#dimensionB").html();
     nFuerza="sin_asignar";
-    id="sin_asignar"
+    id="sin_asignar";
     if (tipo=="fuerza"){
-        nFuerza=$("nFuerzaB").html();
+        nFuerza=$("#nFuerzaB").html();
     }
     variable={"id":id,"tipo":tipo,"tiempo":tiempo,"dimension":dimension,"nFuerza":nFuerza};
+
     if(tipo=='Sin asignar'){
         validado=false;
     }
