@@ -41,7 +41,6 @@ function cambiarMenuPropiedad(target,valores,valorInicial){
     $("#"+target).parent().html('<a id="'+target+'">'+valorInicial+'</a> <ul class="ulOpciones"> </ul>');
 
     for (var v of valores){
-        console.log(v);
         $('#'+target).parent().children('.ulOpciones').append('\
         <li><a class="linkClick" onclick=\'cambioPropiedad("'+target+'","'+v+'")\'>'+v+'</a>\
         </li>');
@@ -245,15 +244,6 @@ function agregarVariableTabla(idNumber){
                             <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","tiempo")\'>tiempo</a></li>\
                         </ul>\
                     </li>\
-                    <li><a>ENERG&IacuteA</a>\
-                        <ul>\
-                            <li><a class="linkClick">mec&aacutenica</a></li>\
-                            <li><a class="linkClick">potencial</a></li>\
-                            <li><a class="linkClick">cin&eacutetica</a></li>\
-                            <li><a class="linkClick">potencial gravitacional</a></li>\
-                            <li><a class="linkClick">potencial elastica</a></li>\
-                        </ul>\
-                    </li>\
                     <li><a>FUERZA</a>\
                         <ul>\
                             <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","fuerza")\'>fuerza</a></li>\
@@ -262,8 +252,15 @@ function agregarVariableTabla(idNumber){
                             <li><a class="linkClick">fuerza normal</a></li>\
                         </ul>\
                     </li>\
-                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","angulo")\'>&aacutengulo</a></li>\
-                    <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","masa")\'>masa</a></li>\
+                <li><a>ENERG&IacuteA</a>\
+                    <ul>\
+                        <li><a>cin&eacutetica</a></li>\
+                        <li><a>potencial</a></li>\
+                        <li><a>mec&aacutenica</a></li>\
+                    </ul>\
+                </li>\
+                <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","angulo")\'>&aacutengulo</a></li>\
+                <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","masa")\'>masa</a></li>\
                 </ul>\
             </li>\
         </ul>\
@@ -325,6 +322,7 @@ $("#btBuscar").click(function(){
     var nFuerza="sin_asignar";
     var dimension;
     var variable={};
+    var id;
     var validado=true;
 
     var n=parseInt($("#txtCantidadV").val());
@@ -333,14 +331,16 @@ $("#btBuscar").click(function(){
         tiempo =$("#tiempo"+(i+1)).html();
         valor = $("#valor"+(i+1)).val();
         dimension = $("#dimension"+(i+1)).html();
-        
+        id=$("#tablaTH"+(i+1)).html();
+        id=id.trim(); //Quitar espacios en blanco
+
         if (tipo=="fuerza"){
             nFuerza=$("#nFuerza"+(i+1)).html();
         }else{
             nFuerza="sin_asignar";
         }
 
-        variable={"tipo":tipo,"tiempo":tiempo,"valor":valor,"dimension":dimension,"nFuerza":nFuerza};
+        variable={"id":id,"tipo":tipo,"tiempo":tiempo,"valor":valor,"dimension":dimension,"nFuerza":nFuerza};
         variables.push(variable);
 
         if(tipo=='Sin asignar'){
@@ -352,10 +352,11 @@ $("#btBuscar").click(function(){
     tiempo =$("#tiempoB").html();
     dimension = $("#dimensionB").html();
     nFuerza="sin_asignar";
+    id="sin_asignar"
     if (tipo=="fuerza"){
         nFuerza=$("nFuerzaB").html();
     }
-    variable={"tipo":tipo,"tiempo":tiempo,"dimension":dimension,"nFuerza":nFuerza};
+    variable={"id":id,"tipo":tipo,"tiempo":tiempo,"dimension":dimension,"nFuerza":nFuerza};
     if(tipo=='Sin asignar'){
         validado=false;
     }
@@ -380,19 +381,21 @@ $("#btBuscar").click(function(){
                     
                     $('#ecuaciones').html('<h2 class="lbEcuacion">Ecuaciones: </h2>');
                     for (e of result[0]){
-                        if (e[4]=='sin_asignar'){ //Si hay segundo valor
+                        if (e[5]=='sin_asignar'){ //Si hay segundo valor
                             $('#ecuaciones').append('\
                             <div class="divEcuacion">\
-                            <h3 class="ecuacion2">('+e[2]+')</h3>\
-                            <h2 class="ecuacion1">'+e[1]+' = '+e[3]+'</h2>\
+                            <h3 class="ecuacion2">('+e[3]+')</h3>\
+                            <h2 class="ecuacion1">'+e[1]+' = '+e[4]+'</h2>\
                             <h3 class="ecuacion2">'+e[0]+'</h3>\
+                            <h3 class="ecuacion2">'+e[2]+'</h3>\
                             </div><br><br><br>');
                         }else{
                             $('#ecuaciones').append('\
                             <div class="divEcuacion">\
-                            <h3 class="ecuacion2">('+e[2]+')</h3>\
-                            <h2 class="ecuacion1">'+e[1]+' = '+e[3]+' , '+e[4]+' </h2>\
+                            <h3 class="ecuacion2">('+e[3]+')</h3>\
+                            <h2 class="ecuacion1">'+e[1]+' = '+e[4]+' , '+e[5]+' </h2>\
                             <h3 class="ecuacion2"> '+e[0]+'</h3>\
+                            <h3 class="ecuacion2"> '+e[2]+'</h3>\
                             </div><br><br><br>');                           
                         }
 

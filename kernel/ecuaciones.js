@@ -11,7 +11,7 @@ const tipos_variables=["velocidad","aceleracion","distancia","tiempo","angulo","
 const tiempo_variables=["general","media","inicio","fin"];
 const  dimension_variables=["x/y","x","y"];
 const  objetos_variables=["A","B"];
-var propiedades={"tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
+var propiedades={"id":"sin_asignar","tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
 
 class Variable{
     constructor(propiedades){
@@ -25,7 +25,7 @@ class Variable{
         this.valor=propiedades["valor"];
         this.valor2=propiedades["valor2"];
 
-        this.id='sin_asignar';
+        this.id=propiedades["id"];
     }
     comparar(v2){
         if (this.tipo!=v2.tipo)
@@ -84,6 +84,8 @@ class Ecuacion{ //Clase que toda ecuación debe heredar
         this.dimensionBase='x';
         this.propiedadesVariablesComparar=[]; //Propiedades que son requerimientos para inicilizar las variables de las ecuaciones
         this.propiedadesVariablesSobrantes=[];
+
+        this.ecuacionconIdentificador="sin_asignar";
         this.inicializar();
 
         for ( var i=0;i<this.variables.length; i++){ //Otiene el indice del valor que se quiere obtener 
@@ -167,6 +169,10 @@ class Ecuacion{ //Clase que toda ecuación debe heredar
             }
         return v;
     }
+
+    getEcuacionIdentificada(nuevoID){
+        return "sin_asignar";
+    }
 }
 
 class VelocidadFinal1 extends Ecuacion{
@@ -196,7 +202,20 @@ class VelocidadFinal1 extends Ecuacion{
     }
     constructor(obtener,param_bars){
         super(obtener,param_bars); //Se llama al metodo padre, Ecuacion __init__()
-    }   
+    }  
+    getEcuacionIdentificada(nuevoID){
+        if(this.variable_base!=-1){
+            this.variables[this.variable_base].id=nuevoID;
+        }
+        if(this.getSoluble()){
+            var vf=this.variables[0];
+            var vi=this.variables[1];
+            var a=this.variables[2];
+            var t=this.variables[3];
+            this.ecuacionconIdentificador="v["+vf.id+"] = "+"v["+vi.id+"] + a["+a.id+"]*t["+t.id+"]";
+        }
+        return this.ecuacionconIdentificador;
+    } 
     usar(){
         var resultado="sin_asignar";
         if (this.variables_faltantes==0){
@@ -245,6 +264,18 @@ class TiempoG extends Ecuacion{
     constructor(obtener,param_bars){
         super(obtener,param_bars);
     }
+    getEcuacionIdentificada(nuevoID){
+        if(this.variable_base!=-1){
+            this.variables[this.variable_base].id=nuevoID;
+        }
+        if(this.getSoluble()){
+            var tg=this.variables[0];
+            var ti=this.variables[1];
+            var tf=this.variables[2];
+            this.ecuacionconIdentificador="t["+tg.id+"] = "+"t["+tf.id+"] - t["+ti.id+"]";
+        }
+        return this.ecuacionconIdentificador;
+    } 
     usar(){
         var resultado="sin_asignar";
         if (this.variables_faltantes==0){
