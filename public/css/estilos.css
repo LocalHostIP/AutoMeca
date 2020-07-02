@@ -455,6 +455,13 @@ pre strong {
   
   .search-input:focus {
     border-bottom: 2px solid #86C232;
+    background: none;
+    color:#61892F;
+
+  }
+
+  .search-input:hover {
+    border-bottom: 2px solid #86C232;
   }
   
   
