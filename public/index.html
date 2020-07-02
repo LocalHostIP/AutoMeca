@@ -3,189 +3,238 @@
     <head>
         <meta charset="utf-8" content="text/html" />
         <title>AutoMeca</title>
-        <link rel="stylesheet" type="text/css" href="css/estilos_importados.css" />
         <link rel="stylesheet" type="text/css" href="css/estilos.css" />
     </head>
-    <body>
-        <header>
-            <!--_________________MENU__________________-->
 
-            <!--    Made by Erik Terwan    -->
-            <!--   24th of November 2015   -->
-            <!--        MIT License        -->
-            <nav class="menu" role="navigation">
-                <div id="menuToggle">
-                <input type="checkbox" />
+<body>
+  <!-- TAB CONTROLLERS -->
+  <input id="panel-1-ctrl"
+  class="panel-radios" type="radio" name="tab-radios" checked>
+  <input id="panel-2-ctrl"
+  class="panel-radios" type="radio" name="tab-radios">
+  <input id="panel-3-ctrl"
+  class="panel-radios" type="radio" name="tab-radios">
+  <input id="panel-4-ctrl"
+  class="panel-radios" type="radio" name="tab-radios">
 
-                <span></span>
-                <span></span>
-                <span></span>
+  <header id="introduction">
+    <h1 class="tituloPrincipal">AutoMeca</h1>
+    <h1 class="tituloDescripcion">Calculadora de problemas de mec&aacutenica</h1>
+  </header>
 
-                <ul id="menu">
-                    <a href="#"><li>Calculadora</li></a>
-                    <a href="#"><li>F&oacutermulas</li></a></a>
-                    <a href="#"><li>Instrucciones</li></a>
-                </ul>
-                </div>
-                <h1 class="titulo">Calculadora</h1>
-            </nav>
-            <!--_________________Fin MENU__________________-->            
-        </header>
+  <!-- TABS LIST -->
+  <ul id="tabs-list">
+  <!-- MENU TOGGLE -->
+    <label id="open-nav-label" for="nav-ctrl"></label>
+    <li id="li-for-panel-1">
+    <label class="panel-label"
+          for="panel-1-ctrl">Movimiento lineal</label>
+    </li><!--INLINE-BLOCK FIX
+    --><li id="li-for-panel-2">
+    <label class="panel-label"
+          for="panel-2-ctrl">Movimiento circular</label>
+    </li><!--INLINE-BLOCK FIX
+    --><li id="li-for-panel-3">
+    <label class="panel-label"
+          for="panel-3-ctrl">Formulario</label>
+    </li><!--INLINE-BLOCK FIX
+    --><li id="li-for-panel-4">
+    <label class="panel-label"
+          for="panel-4-ctrl">Instrucciones</label>
+    </li><!--INLINE-BLOCK FIX
+    --><label id="close-nav-label" for="nav-ctrl">Close</label>
+  </ul>
 
-        <section class="main">
-            <section>
-                <!--_________________Tabla vraibles conocidas__________________-->
-                <h1> Variables conocidas <input id="txtCantidadV" class="txt_cantidadV" type="text" value="1"> </h1> 
-                <div class="tbl-header">
-                  <table cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                      <tr>
-                        <th class="tituloID"> </th>
-                        <th>Tipo</th>
-                        <th>Tiempo</th>
-                        <th>Dimensi&oacuten</th>
-                        <th>Valor</th>
-                        <th class="thNumeroFuerza">N&uacutemero<br>Fuerza</th>
-                        <th class="thEliminarVariable"> </th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-                <div class="tbl-content">
-                  <table cellpadding="0" cellspacing="0" border="0">
-                    <tbody id="cuerpoTabla">
-                    </tbody>
-                  </table>   
-                </div>
-                <!--_________________Fin Tabla vraibles conocidas__________________-->
-              </section>
+  <!-- THE PANELS -->
+  <article id="panels">
+  <div class="container">
+  <section id="panel-1">
 
-              <section>
-                <!--_________________Tabla tabla variable buscar__________________-->
-                <h1> Variable a buscar </h1> 
-                <div class="tbl-header">
-                  <table cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                      <tr>
-                        <th>Tipo</th>
-                        <th>Tiempo</th>
-                        <th>Dimensi&oacuten</th>
-                        <th class="thNumeroFuerza">N&uacutemero<br>Fuerza</th>
-                      
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-                <div class="tbl-content">
-                  <table cellpadding="0" cellspacing="0" border="0">
-                    <tbody>
-                      <tr class="AgregarVariable">
-                        <td>    
-                            <ul class="nav nav_variable">
-                                <li><a id="tipoB">Sin asignar</a>
+  <main class="movimientoLineal">
+
+    <!--_________________Tabla vraibles conocidas__________________-->
+
+    <h2 class="tituloTabla"> Variables conocidas
+      <div class="search">
+        <input id="txtCantidadV" class="txt_cantidadV search-input" type="text" value="1"/> 
+      </div>
+    </h2>
+
+
+    <div class="tablaVariablesBuscar">
+        <div class="tbl-header">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+                <th class="tituloID"> </th>
+                <th>Tipo</th>
+                <th>Tiempo</th>
+                <th>Dimensi&oacuten</th>
+                <th>Valor</th>
+                <th class="thNumeroFuerza">N&uacutemero<br>Fuerza</th>
+                <th class="thEliminarVariable"> </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tbody id="cuerpoTabla">
+            </tbody>
+          </table>   
+        </div>
+        <!--_________________Fin Tabla vraibles conocidas__________________-->
+      </div>
+
+
+      <h2 class="tituloTabla"> Variable a buscar </h2> 
+      <section>
+        <!--_________________Tabla tabla variable buscar__________________-->
+
+        <div class="tbl-header">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Tiempo</th>
+                <th>Dimensi&oacuten</th>
+                <th class="thNumeroFuerza">N&uacutemero<br>Fuerza</th>
+              
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              <tr class="AgregarVariable">
+                <td>    
+                    <ul class="nav nav_variable">
+                        <li><a id="tipoB">Sin asignar</a>
+                            <ul>
+                                <li><a >MOVIMIENTO</a>
                                     <ul>
-                                        <li><a >MOVIMIENTO</a>
-                                            <ul>
-                                                <li><a class="linkClick" onclick='cambioPropiedad("tipoB","velocidad")'>velocidad</a></li>
-                                                <li><a class="linkClick" onclick='cambioPropiedad("tipoB","aceleracion")'>aceleraci&oacuten</a></li>
-                                                <li><a class="linkClick" onclick='cambioPropiedad("tipoB","distancia")'>distancia</a></li>
-                                                <li><a class="linkClick" onclick='cambioPropiedad("tipoB","tiempo")'>tiempo</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a>ENERG&IacuteA</a>
-                                            <ul>
-                                                <li><a> mec&aacutenica</a></li>
-                                                <li><a> potencial</a></li>
-                                                <li><a> cin&eacutetica</a></li>
-                                                <li><a> potencial gravitacional</a></li>
-                                                <li><a> potencial el&aacutestica</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a>FUERZA</a>
-                                            <ul>
-                                                <li><a class="linkClick" onclick='cambioPropiedad("tipoB","fuerza")'>fuerza</a></li>
-                                                <li><a>friccion cin&eacutetica</a></li>
-                                                <li><a>friccion est&aacutetica</a></li>
-                                                <li><a>fuerza normal</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("tipoB","angulo")'>&aacutengulo</a></li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("tipoB","masa")'>masa</a></li>
+                                        <li><a class="linkClick" onclick='cambioPropiedad("tipoB","velocidad")'>velocidad</a></li>
+                                        <li><a class="linkClick" onclick='cambioPropiedad("tipoB","aceleracion")'>aceleraci&oacuten</a></li>
+                                        <li><a class="linkClick" onclick='cambioPropiedad("tipoB","distancia")'>distancia</a></li>
+                                        <li><a class="linkClick" onclick='cambioPropiedad("tipoB","tiempo")'>tiempo</a></li>
                                     </ul>
+                                </li>
+                                <li><a>ENERG&IacuteA</a>
+                                    <ul>
+                                        <li><a> mec&aacutenica</a></li>
+                                        <li><a> potencial</a></li>
+                                        <li><a> cin&eacutetica</a></li>
+                                        <li><a> potencial gravitacional</a></li>
+                                        <li><a> potencial el&aacutestica</a></li>
+                                    </ul>
+                                </li>
+                                <li><a>FUERZA</a>
+                                    <ul>
+                                        <li><a class="linkClick" onclick='cambioPropiedad("tipoB","fuerza")'>fuerza</a></li>
+                                        <li><a>friccion cin&eacutetica</a></li>
+                                        <li><a>friccion est&aacutetica</a></li>
+                                        <li><a>fuerza normal</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="linkClick" onclick='cambioPropiedad("tipoB","angulo")'>&aacutengulo</a></li>
+                                <li><a class="linkClick" onclick='cambioPropiedad("tipoB","masa")'>masa</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+                <td>                            
+                    <ul class="nav nav_variable">
+                        <li><a id="tiempoB">general</a>
+                            <ul class="ulOpciones">
+                                <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","general")'>general</a>
+                                </li>
+                                <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","inicio")'>inicio</a>
+                                </li>
+                                <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","fin")'>fin</a>
+                                </li>
+                                <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","media")'>media</a>
                                 </li>
                             </ul>
-                        </td>
-                        <td>                            
-                            <ul class="nav nav_variable">
-                                <li><a id="tiempoB">general</a>
-                                    <ul class="ulOpciones">
-                                        <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","general")'>general</a>
-                                        </li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","inicio")'>inicio</a>
-                                        </li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","fin")'>fin</a>
-                                        </li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("tiempoB","media")'>media</a>
-                                        </li>
-                                    </ul>
+                        </li>
+                    </ul></td>
+                <td>
+                    <ul class="nav nav_variable">
+                        <li><a id="dimensionB">x</a>
+                            <ul class="ulOpciones">
+                                <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","x")'>x</a>
                                 </li>
-                            </ul></td>
-                        <td>
-                            <ul class="nav nav_variable">
-                                <li><a id="dimensionB">x</a>
-                                    <ul class="ulOpciones">
-                                        <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","x")'>x</a>
-                                        </li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","y")'>y</a>
-                                        </li>
-                                        <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","x/y")'>x/y</a>
-                                        </li>
-                                    </ul>
+                                <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","y")'>y</a>
                                 </li>
-                            </ul></td>
-                        </td>
-                        <td>
-                          <ul class="nav nav_variable">
-                              <li><a style="display: none;" id="nFuerzaB">1</a>
-                                  <ul class="ulOpciones">
-                                      <li><a class="linkClick" onclick='cambioPropiedad("nFuerzaB","1")'>1</a>
-                                      </li>
-                                  </ul>
+                                <li><a class="linkClick" onclick='cambioPropiedad("dimensionB","x/y")'>x/y</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul></td>
+                </td>
+                <td>
+                  <ul class="nav nav_variable">
+                      <li><a style="display: none;" id="nFuerzaB">1</a>
+                          <ul class="ulOpciones">
+                              <li><a class="linkClick" onclick='cambioPropiedad("nFuerzaB","1")'>1</a>
                               </li>
-                          </ul></td>
-                      </td>
-                      </tr>
+                          </ul>
+                      </li>
+                  </ul></td>
+              </td>
+              </tr>
 
-                    </tbody>
-                  </table>          
-                </div>
-                <!--_________________Fin tabla variable buscar__________________-->
+            </tbody>
+          </table>          
+        </div>
+        <!--_________________Fin tabla variable buscar__________________-->
 
-                </section>
-
-                <!--_________________Boton solucion__________________-->
-                <button id="btBuscar"> Buscar solucion </button>
-
-                <!--_________________Animacion de carga__________________-->
-                <div class="load-9">
-                  <div class="spinner">
-                      <div class="bubble-1"></div>
-                      <div class="bubble-2"></div>
-                  </div> 
-                </div>
-
-                <!--_________________Seccion de resultados__________________-->
-                <div class="Resultados">
-                    <div>
-                        <h2 class="lbResultado">Resultado: </h3> <h2 id="resultado" >0.0</h3>
-                    </div>
-                    <br><br><br>
-                    
-                    <div id="ecuaciones">
-                        <h2 class="lbEcuacion">Ecuaciones: </h2>
-                    </div>    
-                </div>
         </section>
+
+        <!--_________________Boton solucion__________________-->
+        <a id="btBuscar">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Buscar solucion
+      </a>
+        <!--_________________Animacion de carga__________________-->
+        <div class="load-9">
+          <div class="spinner">
+              <div class="bubble-1"></div>
+              <div class="bubble-2"></div>
+          </div> 
+        </div>
+
+        <!--_________________Seccion de resultados__________________-->
+        <div class="Resultados">
+            <div>
+                <h2 class="lbResultado">Resultado: </h3> <h2 id="resultado" >0.0</h3>
+            </div>
+            <br><br><br>
+            
+            <div id="ecuaciones">
+                <h2 class="lbEcuacion">Ecuaciones: </h2>
+            </div>    
+        </div>
+  </main>
+  </section>
+  <section id="panel-2">
+    
+  <main>
+  </main>
+  </section>
+  <section id="panel-3">
+  <main>
+  </main>  
+  </section>
+  <section id="panel-4">
+    <main>
+    </main>  
+    </section>
+  </div>
+  </article>
         
         <script type="text/javascript" src="javascript/jquery-3.3.1.js"></script>
         <script type="text/javascript" src="javascript/importados.js"></script>

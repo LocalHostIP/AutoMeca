@@ -206,7 +206,7 @@ function eliminarVar(target,idNumber){
                     </li>\
                 </ul></td>\
             </td>\
-            <td><input class="txt_valor" type="text" value="0" id="valor'+(i-1)+'"></td>\
+            <td><input class="txt_valor search-input" type="text" value="0" id="valor'+(i-1)+'"></td>\
             <td>\
             <ul class="nav nav_variable">\
                 <li><a style="display: none;" id="nFuerza'+(i-1)+'">1</a>\
@@ -297,7 +297,8 @@ function agregarVariableTabla(idNumber){
             </li>\
         </ul></td>\
     </td>\
-    <td><input class="txt_valor" type="text" value="0" id="valor'+idNumber+'"></td>\
+    <td>\
+    <input class="txt_valor search-input" type="text" value="0" id="valor'+idNumber+'"></td>\
     <td>\
     <ul class="nav nav_variable">\
     <li>\
