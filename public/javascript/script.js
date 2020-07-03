@@ -55,7 +55,7 @@ function cambioPropiedad(target,valor){
     nVariable=obtenerNumberoVarible(target);
 
     //Tiempo general
-    if (target.startsWith("tipo")&& (valor=="aceleracion" || valor=="masa")){
+    if (target.startsWith("tipo")&& (valor=="aceleracion" || valor=="masa" || valor=="trabajo") ){
         cambiarMenuPropiedad("tiempo"+nVariable,["general"],"general");
     }
     else if(target.startsWith("tipo") && valor=="fuerza"){
@@ -67,6 +67,9 @@ function cambioPropiedad(target,valor){
         else{
             actualizarFuerza(nVariable);
         }
+    }    
+    else if (target.startsWith("tipo")&& (valor=="distancia" || valor=="tiempo" || valor=="tiempo")){ //Sin tiempo medio
+        cambiarMenuPropiedad("tiempo"+nVariable,["inicio","fin","general"],"general");
     }
     else if( target.startsWith("tipo") ){
         cambiarMenuPropiedad("tiempo"+nVariable,["general","inicio","fin","media"],"general");
@@ -108,6 +111,7 @@ function cambioPropiedad(target,valor){
     "fuerza 4", "fuerza 5"],"velocidad"); 
         }       
     }
+
 }
 
 function actualizarFuerza(nvariable){
@@ -154,14 +158,13 @@ function eliminarVar(target,idNumber){
                                 </ul>\
                             </li>\
                             <li><a>ENERG&IacuteA</a>\
-                                <ul>\
-                                    <li><a class="linkClick">mec&aacutenica</a></li>\
-                                    <li><a class="linkClick">potencial</a></li>\
-                                    <li><a class="linkClick">cin&eacutetica</a></li>\
-                                    <li><a class="linkClick">potencial gravitacional</a></li>\
-                                    <li><a class="linkClick">potencial elastica</a></li>\
-                                </ul>\
-                            </li>\
+                            <ul>\
+                                <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","trabajo")\'>trabajo</a></li>\
+                                <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","cinetica")\'>cin&eacutetica</a></li>\
+                                <li><a>potencial</a></li>\
+                                <li><a>mec&aacutenica</a></li>\
+                            </ul>\
+                        </li>\
                             <li><a>FUERZA</a>\
                                 <ul>\
                                     <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+(i-1)+'","fuerza")\'>fuerza</a></li>\
@@ -254,7 +257,8 @@ function agregarVariableTabla(idNumber){
                     </li>\
                 <li><a>ENERG&IacuteA</a>\
                     <ul>\
-                        <li><a>cin&eacutetica</a></li>\
+                        <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","trabajo")\'>trabajo</a></li>\
+                        <li><a class="linkClick" onclick=\'cambioPropiedad("tipo'+idNumber+'","cinetica")\'>cin&eacutetica</a></li>\
                         <li><a>potencial</a></li>\
                         <li><a>mec&aacutenica</a></li>\
                     </ul>\
