@@ -7,11 +7,11 @@ Errores actuales:
     Las formulas son texto y no objetos
 */
 
-const tipos_variables=["velocidad","aceleracion","distancia","tiempo","angulo","fuerza","masa"];
+const tipos_variables=["velocidad","aceleracion","distancia","tiempo","angulo","fuerza","masa","trabajo","cinetica"];
 const tiempo_variables=["general","media","inicio","fin"];
 const  dimension_variables=["x/y","x","y"];
 const  objetos_variables=["A","B"];
-var propiedades={"id":"sin_asignar","tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
+var propiedades={"id":"sin_asignar","tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"general"};
 
 class Variable{
     constructor(propiedades){
@@ -37,9 +37,7 @@ class Variable{
         if (this.objeto!=v2.objeto)
             return false;
         if (this.otro!=v2.otro)
-            return false;  
-        if (this.nFuerza!=v2.nFuerza)
-            return false;                           
+            return false;                        
         return true;
     }
 
@@ -125,7 +123,7 @@ class Ecuacion{ //Clase que toda ecuación debe heredar
 
             for (var i=0;i<this.variables.length;i++){ //Comprobar si las encuentra en otras variables
                 for (var j=0;j<param_vars.length;j++){ //Para cada variable en parametro se revisa si coincide con alugna de las propiedades de las variables para usar la ecuacion y si tiene valor
-                    if (param_vars[j].comparar(this.variables[i]) && param_vars[j].valor!='sin_asignar' && param_vars[j].valor!='sin_asignar'){
+                    if (param_vars[j].comparar(this.variables[i]) && param_vars[j].valor!='sin_asignar'){
                         this.variables_asignadas[i]=true;
                         this.variables[i]=param_vars[j];
                         break;
@@ -1525,7 +1523,7 @@ class VelocidadComponentes3 extends Ecuacion{
             else if (this.variable_base==1)
                 try{
                     teta=(Math.PI*teta)/(180); //Convertir a radianes
-                    vy=vx*(Math.tan(teta));
+                    resultado=vx*(Math.tan(teta));
                 }
                 catch(error){
                     resultado="sin_asignar";
@@ -1553,7 +1551,6 @@ class VelocidadComponentes3 extends Ecuacion{
         return this.variables[this.variable_base];
     }
 }
-
 
 class AceleracionComponentes3 extends Ecuacion{
     inicializar(){
@@ -1613,7 +1610,7 @@ class AceleracionComponentes3 extends Ecuacion{
             else if (this.variable_base==1)
                 try{
                     teta=(Math.PI*teta)/(180); //Convertir a radianes
-                    vy=vx*(Math.tan(teta));
+                    resultado=vx*(Math.tan(teta));
                 }
                 catch(error){
                     resultado="sin_asignar";
@@ -1642,17 +1639,429 @@ class AceleracionComponentes3 extends Ecuacion{
     }
 }
 
+class Trabajo1 extends Ecuacion{
+    inicializar(){
+        this.dificultad=1;
+        this.representacion="W = F*d";
+        this.nombre="Trabajo con fuerza por distancia";
+        var cpp={};
+        Object.assign(cpp, propiedades); //Creacion de variables
+        cpp['tipo']="trabajo";
+        cpp['tiempo']="general";
+        var w=new Variable(cpp) ;   
+        cpp['tipo']="fuerza";
+        cpp['tiempo']="general";
+        var f=new Variable(cpp);
+        cpp['tipo']="distancia";
+        cpp['tiempo']="general";
+        var d=new Variable(cpp);
+
+        this.variables=[w,f,d];
+        this.variables_asignadas=[false,false,false];
+        this.propiedadesVariablesComparar=['tipo',"tiempo"];
+        this.propiedadesVariablesSobrantes=['dimension','otro','objeto'];
+        this.despejes=["W = F*d"," F = W/d","d = W/F"];
+    }
+    constructor(obtener,param_bars){
+        super(obtener,param_bars);
+    }
+    getEcuacionIdentificada(nuevoID){
+        if(this.variable_base!=-1){
+            this.variables[this.variable_base].id=nuevoID;
+        }
+        if(this.getSoluble()){
+            var vx=this.variables[0];
+            var vy=this.variables[1];
+            var a=this.variables[2];
+            this.ecuacionconIdentificador="W["+vx.id+"] = "+"F["+vy.id+"]*d["+a.id+"]";
+        }
+        return this.ecuacionconIdentificador;
+    }
+    usar(){
+        var resultado="sin_asignar";
+        var w=this.variables[0].valor;
+        var f=this.variables[1].valor;
+        var d=this.variables[2].valor;
+        
+        if (this.variables_faltantes==0){
+            if (this.variable_base==0){ 
+                try{
+                    resultado=f*d;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            else if (this.variable_base==1)
+                try{
+                    resultado=w/d;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            else if (this.variable_base==2){ 
+                try{
+                    resultado=w/f;
+                }
+                catch (error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            try{
+                resultado=Math.round(resultado*10000)/10000;
+                }catch{}
+        }
+        if (!Number.isFinite(resultado)){
+            resultado='sin_asignar';
+
+        }
+        this.variables[this.variable_base].valor=resultado;
+        return this.variables[this.variable_base];
+    }
+}
+
+class CineticaInicio extends Ecuacion{
+    inicializar(){
+        this.dificultad=1;
+        this.representacion="Ki = (1/2)*m*vi^2";
+        this.nombre="Energia cinetica";
+        var cpp={};
+        Object.assign(cpp, propiedades); //Creacion de variables
+        cpp['tipo']="masa";
+        cpp['tiempo']="general";
+        var m=new Variable(cpp) ;   
+        cpp['tipo']="cinetica";
+        cpp['tiempo']="inicio";
+        var k=new Variable(cpp);
+        cpp['tipo']="velocidad";
+        cpp['tiempo']="inicio";
+        var v=new Variable(cpp);
+
+        this.variables=[m,k,v];
+        this.variables_asignadas=[false,false,false];
+        this.propiedadesVariablesComparar=['tipo',"tiempo"];
+        this.propiedadesVariablesSobrantes=['dimension','otro','objeto'];
+        this.despejes=["m = (2*Ki)/(vi^2)"," Ki = (1/2)*m*vi^2","vi = (2*Ki/m)^(1/2)"];
+    }
+    constructor(obtener,param_bars){
+        super(obtener,param_bars);
+    }
+    getEcuacionIdentificada(nuevoID){
+        if(this.variable_base!=-1){
+            this.variables[this.variable_base].id=nuevoID;
+        }
+        if(this.getSoluble()){
+            var m=this.variables[0];
+            var k=this.variables[1];
+            var v=this.variables[2];
+            this.ecuacionconIdentificador="Ki["+k.id+"] = "+"(1/2)*m["+m.id+"]*v["+v.id+"]^2";
+        }
+        return this.ecuacionconIdentificador;
+    }
+    usar(){
+        var resultado="sin_asignar";
+        var m=this.variables[0].valor;
+        var k=this.variables[1].valor;
+        var v=this.variables[2].valor;
+        
+        if (this.variables_faltantes==0){
+            if (this.variable_base==0){ 
+                try{
+                    resultado=(2*k)/(v*v);
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            else if (this.variable_base==1)
+                try{
+                    resultado=(1/2)*m*v*v;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            else if (this.variable_base==2){ 
+                try{
+                    resultado=Math.sqrt((2*k)/(m));
+                }
+                catch (error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            try{
+                resultado=Math.round(resultado*10000)/10000;
+                }catch{}
+        }
+        if (!Number.isFinite(resultado)){
+            resultado='sin_asignar';
+
+        }
+        this.variables[this.variable_base].valor=resultado;
+        return this.variables[this.variable_base];
+    }
+}
+
+class CineticaFin extends Ecuacion{
+    inicializar(){
+        this.dificultad=1;
+        this.representacion="Kf = (1/2)*m*vf^2";
+        this.nombre="Energia cinetica";
+        var cpp={};
+        Object.assign(cpp, propiedades); //Creacion de variables
+        cpp['tipo']="masa";
+        cpp['tiempo']="general";
+        var m=new Variable(cpp) ;   
+        cpp['tipo']="cinetica";
+        cpp['tiempo']="fin";
+        var k=new Variable(cpp);
+        cpp['tipo']="velocidad";
+        cpp['tiempo']="fin";
+        var v=new Variable(cpp);
+
+        this.variables=[m,k,v];
+        this.variables_asignadas=[false,false,false];
+        this.propiedadesVariablesComparar=['tipo',"tiempo"];
+        this.propiedadesVariablesSobrantes=['dimension','otro','objeto'];
+        this.despejes=["m = (2*Kf)/(vf^2)"," Kf = (1/2)*m*vf^2","vf = (2*Kf/m)^(1/2)"];
+    }
+    constructor(obtener,param_bars){
+        super(obtener,param_bars);
+    }
+    getEcuacionIdentificada(nuevoID){
+        if(this.variable_base!=-1){
+            this.variables[this.variable_base].id=nuevoID;
+        }
+        if(this.getSoluble()){
+            var m=this.variables[0];
+            var k=this.variables[1];
+            var v=this.variables[2];
+            this.ecuacionconIdentificador="Kf["+k.id+"] = "+"(1/2)*m["+m.id+"]*v["+v.id+"]^2";
+        }
+        return this.ecuacionconIdentificador;
+    }
+    usar(){
+        var resultado="sin_asignar";
+        var m=this.variables[0].valor;
+        var k=this.variables[1].valor;
+        var v=this.variables[2].valor;
+        
+        if (this.variables_faltantes==0){
+            if (this.variable_base==0){ 
+                try{
+                    resultado=(2*k)/(v*v);
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            else if (this.variable_base==1)
+                try{
+                    resultado=(1/2)*m*v*v;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            else if (this.variable_base==2){ 
+                try{
+                    resultado=Math.sqrt((2*k)/(m));
+                }
+                catch (error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            try{
+                resultado=Math.round(resultado*10000)/10000;
+                }catch{}
+        }
+        if (!Number.isFinite(resultado)){
+            resultado='sin_asignar';
+
+        }
+        this.variables[this.variable_base].valor=resultado;
+        return this.variables[this.variable_base];
+    }
+}
+
+class CineticaGeneral extends Ecuacion{
+    inicializar(){
+        this.dificultad=1;
+        this.representacion=String.fromCharCode(30)+"K = Kf - Ki";
+        this.nombre="Energia cinetica general";
+        var cpp={};
+        Object.assign(cpp, propiedades); //Creacion de variables
+        cpp['tipo']="cinetica";
+        cpp['tiempo']="general";
+        var k=new Variable(cpp) ;   
+        cpp['tipo']="cinetica";
+        cpp['tiempo']="fin";
+        var kf=new Variable(cpp);
+        cpp['tipo']="cinetica";
+        cpp['tiempo']="inicio";
+        var ki=new Variable(cpp);
+
+        this.variables=[k,kf,ki];
+        this.variables_asignadas=[false,false,false];
+        this.propiedadesVariablesComparar=['tipo',"tiempo"];
+        this.propiedadesVariablesSobrantes=['dimension','otro','objeto'];
+        this.despejes=[String.fromCharCode(30)+"K = Kf - Ki","Kf = "+String.fromCharCode(30)+"K + Ki","Ki = Kf -"+String.fromCharCode(30)+"K"];
+    }
+    constructor(obtener,param_bars){
+        super(obtener,param_bars);
+    }
+    getEcuacionIdentificada(nuevoID){
+        if(this.variable_base!=-1){
+            this.variables[this.variable_base].id=nuevoID;
+        }
+        if(this.getSoluble()){
+            var k=this.variables[0];
+            var kf=this.variables[1];
+            var ki=this.variables[2];
+            this.ecuacionconIdentificador="K["+k.id+"] = "+"K["+kf.id+"] - K["+ki.id+"]";
+        }
+        return this.ecuacionconIdentificador;
+    }
+    usar(){
+        var resultado="sin_asignar";
+        var k=this.variables[0].valor;
+        var kf=this.variables[1].valor;
+        var ki=this.variables[2].valor;
+        
+        if (this.variables_faltantes==0){
+            if (this.variable_base==0){ 
+                try{
+                    resultado=kf-ki;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            else if (this.variable_base==1)
+                try{
+                    resultado=k+ki;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            else if (this.variable_base==2){ 
+                try{
+                    resultado=kf-k;
+                }
+                catch (error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            try{
+                resultado=Math.round(resultado*10000)/10000;
+                }catch{}
+        }
+        if (!Number.isFinite(resultado)){
+            resultado='sin_asignar';
+
+        }
+        this.variables[this.variable_base].valor=resultado;
+        return this.variables[this.variable_base];
+    }
+}
+
+class Trabajo2 extends Ecuacion{
+    inicializar(){
+        this.dificultad=1;
+        this.representacion="W = ▲K";
+        this.nombre="trabajo con cambio de energia cinetica";
+        var cpp={};
+        Object.assign(cpp, propiedades); //Creacion de variables
+        cpp['tipo']="trabajo";
+        cpp['tiempo']="general";
+        var w=new Variable(cpp) ;   
+        cpp['tipo']="cinetica";
+        cpp['tiempo']="general";
+        var k=new Variable(cpp);
+
+
+        this.variables=[w,k];
+        this.variables_asignadas=[false,false];
+        this.propiedadesVariablesComparar=['tipo',"tiempo"];
+        this.propiedadesVariablesSobrantes=['dimension','otro','objeto'];
+        this.despejes=["W=▲K","▲K=W"];
+    }
+    constructor(obtener,param_bars){
+        super(obtener,param_bars);
+    }
+    getEcuacionIdentificada(nuevoID){
+        if(this.variable_base!=-1){
+            this.variables[this.variable_base].id=nuevoID;
+        }
+        if(this.getSoluble()){
+            var w=this.variables[0];
+            var k=this.variables[1];
+            this.ecuacionconIdentificador="W["+w.id+"] = "+"K["+k.id+"]";
+        }
+        return this.ecuacionconIdentificador;
+    }
+    usar(){
+        var resultado="sin_asignar";
+        var w=this.variables[0].valor;
+        var k=this.variables[1].valor;
+        
+        if (this.variables_faltantes==0){
+            if (this.variable_base==0){ 
+                try{
+                    resultado=k;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+            }
+            else if (this.variable_base==1)
+                try{
+                    resultado=w;
+                }
+                catch(error){
+                    resultado="sin_asignar";
+                    console.log(error);
+                }
+
+            try{
+                resultado=Math.round(resultado*10000)/10000;
+                }catch{}
+        }
+        if (!Number.isFinite(resultado)){
+            resultado='sin_asignar';
+
+        }
+        this.variables[this.variable_base].valor=resultado;
+        return this.variables[this.variable_base];
+    }
+}
+
 
 var grafo={"velocidad":[VelocidadComponentes2,VelocidadFinal1,DistanciaFinal1,VelocidadFinal2,DistanciaG2,VelocidadMedia1,AceleracionMedia1,
-    VelocidadComponentesX1,VelocidadComponentesY1,VelocidadComponentes3],
+    VelocidadComponentesX1,VelocidadComponentesY1,VelocidadComponentes3,
+    CineticaInicio,CineticaFin],
 "tiempo":[TiempoG,VelocidadFinal1,DistanciaFinal1,DistanciaG2,AceleracionMedia1,VelocidadMedia1],
 "aceleracion":[VelocidadFinal1,DistanciaFinal1,VelocidadFinal2,AceleracionMedia1,
     AceleracionComponentesX1,AceleracionComponentesY1,AceleracionComponentes2,AceleracionComponentes3,
     FuerzaAM],
-"distancia":[DistanciaFinal1,DistanciaG,VelocidadFinal2,DistanciaG2,VelocidadMedia1],
+"distancia":[DistanciaFinal1,DistanciaG,VelocidadFinal2,DistanciaG2,VelocidadMedia1,
+    Trabajo1],
 "angulo":[VelocidadComponentesX1,VelocidadComponentesY1,AceleracionComponentesY1,AceleracionComponentesX1,VelocidadComponentes3,AceleracionComponentes3],
-"fuerza":[FuerzaAM],
-"masa":[FuerzaAM]};
+"fuerza":[FuerzaAM,Trabajo1],
+"masa":[FuerzaAM,CineticaInicio,CineticaFin],
+"trabajo":[Trabajo1,Trabajo2],
+"cinetica":[CineticaInicio,CineticaFin,CineticaGeneral,Trabajo2]};
 
 exports.Variable = Variable;
 exports.Ecuacion = Ecuacion;

@@ -3,8 +3,9 @@ Incompletos:
     Ecuaciones energia
     Tabla movimiento cirular
     Intergrar ecuaciones de fuerzas correctamente
-    Explicacion de ecuaciones identificando cada variable usada
-
+    
+    Mejorar el muestreo de ecuaciones usadas
 
 Completados:
+    Explicacion de ecuaciones identificando cada variable usada
     Formula angulo resultante, tangente

@@ -1,5 +1,5 @@
 
-var propiedades={"id":"sin_asignar","tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"sin_asignar"};
+var propiedades={"id":"sin_asignar","tipo":"variable","tiempo":"general","dimension":"general","objeto":"A","otro":"sin_asignar","valor":"sin_asignar","valor2":"sin_asignar","nFuerza":"general"};
 
 class Variable{
     constructor(propiedades){
@@ -25,9 +25,7 @@ class Variable{
         if (this.objeto!=v2.objeto)
             return false;
         if (this.otro!=v2.otro)
-            return false;  
-        if (this.nFuerza!=v2.nFuerza)
-            return false;                           
+            return false;                        
         return true;
     }
 
@@ -58,10 +56,6 @@ class Variable{
 }
 
 function fuerzas(buscar,parametros){
-    console.log("funciona");
-    console.log("variable buscar:");
-    console.log(buscar);
-    console.log(parametros);
 
     var variableResulta = new Variable(propiedades);
     variableResulta.valor=213;
@@ -70,7 +64,7 @@ function fuerzas(buscar,parametros){
     var ecuacionUsada1=["Representacion base 1","Despeje","Ecuacion con las variables usadas"," dimension",variableResulta.valor,variableResulta.valor2 ]; //Formato de una ecuacion usada
     var ecuacionUsada2=["Representacion base 2","Despeje","Ecuacion con las variables usadas","dimension",variableResulta.valor,variableResulta.valor2 ]; //Formato de una ecuacion usada
     
-    var resulta=true; //Si fue resuelta o no
+    var resulta=false; //Si fue resuelta o no
     var peso=2;//peso o dificultad de la solucion
     var solucion = [[ecuacionUsada1,ecuacionUsada2],peso,resulta,variableResulta]; //Formato de la solucion
     return solucion;
